@@ -15,4 +15,7 @@ return [
 
     'supply_item_title' => 'Supply Item',
     'supply_item_btn' => 'Supply this Item',
+
+    'delivery_creation_success' => 'Successfully added new delivery',
+    'delivery_removal_success' => 'Successfully removed delivery',
 ];

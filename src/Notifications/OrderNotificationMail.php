@@ -2,10 +2,10 @@
 
 namespace RecursiveTree\Seat\AllianceIndustry\Notifications;
 
-use Seat\Notifications\Notifications\AbstractMailNotification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Seat\Notifications\Notifications\AbstractMailNotification;
 
 class OrderNotificationMail extends AbstractMailNotification implements ShouldQueue
 {
@@ -13,7 +13,8 @@ class OrderNotificationMail extends AbstractMailNotification implements ShouldQu
 
     private $orders;
 
-    public function __construct($orders){
+    public function __construct($orders)
+    {
         $this->orders = $orders;
     }
 
@@ -21,12 +22,12 @@ class OrderNotificationMail extends AbstractMailNotification implements ShouldQu
     {
 
         $message->success()
-            ->subject("New Industry Orders")
-            ->greeting("Hello Industrialist")
-            ->line("New industry orders have been put up.")
-            ->action("View on SeAT", route("allianceindustry.orders"));
+            ->subject(trans('allianceindustry::ai-config.notification_mail_subject'))
+            ->greeting(trans('allianceindustry::ai-config.notification_mail_greeting'))
+            ->line(trans('allianceindustry::ai-config.notification_mail_line'))
+            ->action(trans('allianceindustry::ai-config.notification_mail_action'), route("allianceindustry.orders"));
 
-        $message->salutation("Regards, the seat-alliance-industry plugin");
+        $message->salutation(trans('allianceindustry::ai-config.notification_mail_salutation'));
 
         return $message;
     }

@@ -54,4 +54,9 @@ return [
     'open_orders_title' => 'Open Orders',
 
     'close_all_completed_orders_btn' => 'Close all completed Orders',
+
+    'create_order_success' => 'Successfully added new order',
+    'update_time_success' => 'Extended the time!',
+    'update_price_success' => 'Updated the price!',
+    'close_order_success' => 'Successfully closed order!',
 ];

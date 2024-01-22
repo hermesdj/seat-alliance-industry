@@ -28,5 +28,6 @@ return [
     'notifications_ping_role_label' => 'Notifications: Roles to ping on order creation',
     'notifications_ping_role_hint' => 'Please copy&paste the discord role ids separated by a space. If you enable developer mode in your settings, you can get the IDs by clicking the role.',
 
-    'update_settings_btn' => 'Update Settings'
+    'update_settings_btn' => 'Update Settings',
+    'update_settings_success' => 'Successfully saved settings'
 ];
