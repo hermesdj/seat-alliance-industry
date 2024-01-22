@@ -23,7 +23,7 @@ return [
     'remove_expired_deliveries_hint' => 'Si une livraison n\'est pas complétée avant l\'expiration de la commande, la livraison est supprimée.',
 
     'default_location_label' => 'Localisations par défaut',
-    'default_location_hint' => 'Contrôle les locations présélectionnées lors de la création d\'une commande',
+    'default_location_hint' => 'Contrôle les localisations présélectionnées lors de la création d\'une commande',
 
     'notifications_ping_role_label' => 'Notifications: Roles à ping lors de le création d\'une commande',
     'notifications_ping_role_hint' => 'Copier/coller les IDs des rôles Discord en laissant un espace entre chacun d\'eux. Si vous avez le mode développeur activé dans vos paramètres, il suffit de cliquer sur le rôle pour avoir son ID.',
