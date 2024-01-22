@@ -1,15 +1,15 @@
 <?php
 
 return [
-    'about_title' => 'About',
+    'about_title' => 'À propos',
 
-    'what_is_seat_alliance_industry_header' => 'What is seat-alliance-industry?',
-    'what_is_seat_alliance_industry_desc' => 'This module is intended to help a corporation, alliance or other organisations to set up a industry order market place.<br /> It is a platform to release a order for a item, let people know you published this order and keep track who is producing it for you.',
+    'what_is_seat_alliance_industry_header' => 'Qu\'est ce que Seat-Alliance-Industrie?',
+    'what_is_seat_alliance_industry_desc' => 'Ce module est destiné à aider une corporation, une alliance ou d\'autres orgnisations à mettre en place un marché des commandes industrielles.<br /> Il s\'agit d\'une plate-forme permettant de passer une commande pour un article, de faire savoir aux gens que vous avez publié cette commande et de garder une trace de qui a produit pour vous.',
 
-    'development_header' => 'Development',
-    'development_desc' => ' Thanks for installing seat-alliance-industry.<br /> I hope you enjoy working with seat-alliance-industry.<br /> To support the development, have you considered donating something? Donations are always welcome and motivate me to put more effort into this project, although they are by no means required.<br /> If you end up using this module a lot, I\'d appreciate a donation. You can give ISK, PLEX or Ships to \'recursivetree\'.',
-    'development_contact' => 'If you have ideas, features or bugs you want to report, feel free to contact me on discord (<a href="https://eveseat.github.io/docs/about/contact/">SeAT discord server</a> or recursive_tree#6692) or open an issue on GitHub (<a href="https://github.com/recursivetree/seat-alliance-industry">recursivetree/seat-alliance-industry</a>).',
+    'development_header' => 'Développement',
+    'development_desc' => ' Merci d\'avoir installé Seat-Alliance-Industry.<br /> J\'espère que vous apprécierez travailler avec Seat-Alliance-Industry.<br /> Pour soutenir le développement, avez-vous envisagé de faire un don ? Les dons sont toujours les bienvenus et me motivent à consacrer davantage d\'efforts à ce projet, même s\'ils ne sont en aucun cas obligatoires..<br /> Si vous utilisez beaucoup ce module, j\'apprécierais un don. Vous pouvez donner des ISK, des PLEX ou des Vaisseaux à \'recursivetree\'.',
+    'development_contact' => 'Si vous avez des idées, des fonctionnalités ou des bugs à signaler, n\'hésitez pas à me contacter sur Discord (<a href="https://eveseat.github.io/docs/about/contact/">SeAT discord server</a> ou recursive_tree#6692) ou ouvrez un ticket sur GitHub (<a href="https://github.com/recursivetree/seat-alliance-industry">recursivetree/seat-alliance-industry</a>).',
 
     'usage_header' => 'Usage',
-    'usage_desc' => 'There are two basic concepts: orders and deliveries.<br />A order is pretty self-explanatory: You order an amount of an item for a price and wait for others to complete you order.<br/>A delivery is the promise that you will complete a order, but you don\'t have the item yet (because they are still being manufactured).<br/>Once you have the items of a delivery you signed up for, contract the items to the requester of the order and mark your order as completed.<br />As soon as every delivery of an order is marked as completed, the order is marked as completed and can be deleted.'
+    'usage_desc' => 'Il y a deux notions de base : les commandes et les livraisons.<br />Une commande est assez explicite : vous commandez un nombre d\'articles pour un prix et attendez que d\'autres terminent votre commande.<br/>Une livraison est la promesse que vous terminerez une commande, mais vous n\'avez pas l\'article (car il est encore en cours de fabrication)<br/>Once you have the items of a delivery you signed up for, contract the items to the requester of the order and mark your order as completed.<br />As soon as every delivery of an order is marked as completed, the order is marked as completed and can be deleted.'
 ];

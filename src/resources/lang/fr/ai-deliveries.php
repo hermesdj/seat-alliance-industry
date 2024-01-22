@@ -13,9 +13,9 @@ return [
     'cancel_delivery_btn' => 'Annuler une livraison',
     'cancel_delivery_action' => 'Annuler cette livraion',
 
-    'supply_item_title' => 'Fournir un item',
-    'supply_item_btn' => 'Fournir cette item',
+    'supply_item_title' => 'Fournir un article',
+    'supply_item_btn' => 'Fournir cet article',
 
     'delivery_creation_success' => 'Ajout réussi d\'une nouvelle livraison',
-    'delivery_removal_success' => 'Successfully removed delivery Suppresson réussi d\'une livraison',
+    'delivery_removal_success' => 'Suppression réussie d\'une livraison',
 ];
