@@ -18,7 +18,7 @@ return [
     'reward_hint' => 'Le profit minimum est de :mpp',
     'add_profit_to_manual_prices_label' => 'Ajouter une marge au prix manuel',
 
-    'days_to_complete_label' => 'Jour pour compléter',
+    'days_to_complete_label' => 'Jours pour compléter',
 
     'location_label' => 'Localisation',
     'priority_label' => 'Priorité',
@@ -31,7 +31,7 @@ return [
 
     'seat_inventory_label' => 'Seat-Inventory',
     'seat_inventory_hint' => 'Ajouter une source à seat-inventory',
-    'seat_inventory_desc' => 'Dès que la livraison pour cette commande sera créée, une source d\'objet sera ajouté à seat-inventory. Une fois que la livraison est marquée comme terminée, la source sera retirée. La source sera ajoutée au <u>premier</u> espace de travail contenant le label <code>add2allianceindustry</code> à n\'importe quelle position de son nom. Vous pouvez renommer les espaces de travail <a href=":route">içi</a>.',
+    'seat_inventory_desc' => 'Dès que la livraison pour cette commande sera créée, une source d\'objet sera ajoutée à seat-inventory. Une fois que la livraison est marquée comme terminée, la source sera retirée. La source sera ajoutée au <u>premier</u> espace de travail contenant le label <code>add2allianceindustry</code> à n\'importe quelle position de son nom. Vous pouvez renommer les espaces de travail <a href=":route">içi</a>.',
     //'seat_inventory_desc' => 'As soon as a delivery for this order is created, a item source will be added to seat-inventory. Once the delivery is marked as completed, the source will be removed. The source will be added to the <u>first</u> workspace containing <code>add2allianceindustry</code> at any position in it\'s name. You can rename workspaces <a href=":route">here.</a>',
 
     'repetition_label' => 'Répétition',
@@ -56,7 +56,7 @@ return [
 
     'close_all_completed_orders_btn' => 'Fermer toutes les commandes complétées',
 
-    'create_order_success' => 'Ajout d\'une nouvel commande réussi !',
+    'create_order_success' => 'Ajout d\'une nouvelle commande réussi !',
     'update_time_success' => 'Temps ajouté !',
     'update_price_success' => 'Prix mis à jour !',
     'close_order_success' => 'Fermeture de la commande réussi !',

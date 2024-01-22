@@ -38,7 +38,7 @@ return [
 
     'edit_price_provider_title' => 'Modifier le fournisseur de prix',
     'manufacturing_time_modifier_label' => 'Modificateur de temps de fabrication',
-    'reaction_time_modifier_label' => 'RModificateur de temps de réaction',
+    'reaction_time_modifier_label' => 'Modificateur de temps de réaction',
 
     'notifications_field_description' => 'Priorité: :priorité | :prix ISK/unité | :Prixtotal ISK Total | :emplacement',
     'notification_more_items' => 'Plus d\'Articles',
