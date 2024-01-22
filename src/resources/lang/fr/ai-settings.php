@@ -15,20 +15,20 @@ return [
     'allow_manual_prices_label' => 'Autoriser les prix manuels à être en-dessous du prix automatique',
     'allow_manual_prices_hint' => 'Pour éviter les prix frauduleux, les prix manuels sont ignorés si ils sont en-dessous du prix automatique.',
 
-    'allow_changing_price_provider_label' => 'Autoriser les utilisateurs à changer le fournisseur de prix lors de la création d\'un ordre.'
+    'allow_changing_price_provider_label' => 'Autoriser les utilisateurs à changer le fournisseur de prix lors de la création d\'un ordre.',
     'allow_changing_price_provider_hint' => 'Pour éviter les ordres frauduleux, il est recommandé de laisser cette option désactivée.',
 
     'general_settings_title' => 'Paramètres général',
 
     'remove_expired_deliveries_label' => 'Supprimer les livraisons expirés',
-    'remove_expired_deliveries_hint' => 'Si une livraison n\'est pas complété avant l\'expiration de l\'ordre, la livraison est supprimée.'
+    'remove_expired_deliveries_hint' => 'Si une livraison n\'est pas complété avant l\'expiration de l\'ordre, la livraison est supprimée.',
 
     'default_location_label' => 'Localisations par défaut',
-    'default_location_hint' => 'Contrôle les locations présélectionner lors de la création d\'un ordre'
+    'default_location_hint' => 'Contrôle les locations présélectionner lors de la création d\'un ordre',
 
-    'notifications_ping_role_label' => 'Notifications: Roles à ping lors de le création d\'un ordre'
+    'notifications_ping_role_label' => 'Notifications: Roles à ping lors de le création d\'un ordre',
     'notifications_ping_role_hint' => 'Copier/coller les IDs des rôles Discord en laissant un espace entre chacun d\'eux. Si vous avez le mode développeur activé dans vos paramètre, il suffit de cliquer sur le rôle pour avoir son ID.',
 
     'update_settings_btn' => 'Mettre à jours les paramètres',
-    'update_settings_success' => 'Mise à jour des paramètres effectués.'
+    'update_settings_success' => 'Mise à jour des paramètres effectués.',
 ];

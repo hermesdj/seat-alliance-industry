@@ -8,7 +8,7 @@ return [
     'your_orders_title' => 'Vos ordres',
 
     'repeating_order_title' => 'Ordre répété',
-    'repeating_order_desc' => 'Ceci est un ordre qui se republie lui-même chaque :days jours. La prochaine republication au lieu le :date.'
+    'repeating_order_desc' => 'Ceci est un ordre qui se republie lui-même chaque :days jours. La prochaine republication au lieu le :date.',
 
     'items' => 'Items',
     'items_placeholder' => "MULTIBUY:\nTristan 100\nOmen 100\nTritanium 30000\n\nFITTINGS:\n[Pacifier, 2022 Scanner]\n\nCo-Processor II\nCo-Processor II\n\nMultispectrum Shield Hardener II\nMultispectrum Shield Hardener II\n\nSmall Tractor Beam II\nSmall Tractor Beam II",
