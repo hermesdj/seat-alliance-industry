@@ -1,16 +1,17 @@
 @extends('web::layouts.grids.12')
 
-@section('title', "Order Marketplace")
-@section('page_header', "Order Marketplace")
+@section('title', trans('allianceindustry::ai-orders.order_marketplace_title'))
+@section('page_header', trans('allianceindustry::ai-orders.order_marketplace_title'))
 
 
 @section('full')
     <div class="card">
         <div class="card-body">
             <h5 class="card-header d-flex flex-row align-items-baseline">
-                Open Orders
+                {{trans('allianceindustry::ai-orders.open_orders_title')}}
                 @can("allianceindustry.create_orders")
-                    <a href="{{ route("allianceindustry.createOrder") }}" class="btn btn-primary ml-auto">Create Order</a>
+                    <a href="{{ route("allianceindustry.createOrder") }}"
+                       class="btn btn-primary ml-auto">{{trans('allianceindustry::ai-orders.create_order_title')}}</a>
                 @endcan
             </h5>
             <div class="card-text pt-3">
@@ -22,12 +23,12 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-header d-flex flex-row align-items-baseline">
-                Your Orders
+                {{trans('allianceindustry::ai-orders.your_orders_title')}}
 
                 @if($personalOrders->where("completed",true)->isNotEmpty())
                     <form action="{{ route("allianceindustry.deleteCompletedOrders") }}" method="POST" class="ml-auto">
                         @csrf
-                        <button class="btn btn-danger">Close all completed Orders</button>
+                        <button class="btn btn-danger">{{trans('allianceindustry::ai-orders.close_all_completed_orders_btn')}}</button>
                     </form>
                 @endif
             </h5>
