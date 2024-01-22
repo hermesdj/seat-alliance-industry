@@ -7,7 +7,7 @@ return [
 
     'notification_from' => 'SeAT Alliance Industry',
 
-    'notification_mail_subject' => 'Nouvelles commandes d'industries',
+    'notification_mail_subject' => 'Nouvelles commandes d\'industries',
     'notification_mail_greeting' => 'Bonjour Industriel',
     'notification_mail_line' => 'De nouvelles commandes industrielles ont été passées.',
     'notification_mail_action' => 'Voir sur SeAT',

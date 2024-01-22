@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'menu_title' => 'Planificateur de l'industrie de l'Alliance',
+    'menu_title' => 'Industrie',
     'menu_orders' => 'Commandes',
     'menu_deliveries' => 'Livraisons',
     'menu_settings' => 'Paramètres',
@@ -27,7 +27,7 @@ return [
     'tags_header' => 'Tags',
     'quantity_header' => 'Quantité',
     'created_header' => 'Créé',
-    'until_header' => 'Jusqu'à',
+    'until_header' => 'Jusqu\'à',
     'character_header' => 'Personnage',
 
     'actions_header' => 'Actions',
@@ -49,8 +49,8 @@ return [
 
     // Orders error
     'error_order_is_empty' => 'Vous devez ajouter au moins 1 article à la livraison',
-    'error_order_not_found' => 'La commande n'a pas été trouvée',
-    'error_obsolete_order' => 'Can\'t update pre-seat-5 orders due to breaking internal changes.',
+    'error_order_not_found' => 'La commande n\'a pas été trouvée',
+    'error_obsolete_order' => 'Ne peut pas modifier des commandes obsolètes d\'avant Seat 5.0 à cause d\'un changement interne du code.',
     'error_price_provider_get_prices' => 'Le fournisseur de prix n\'a pas réussi à récupérer les prix: :message',
     'error_deleted_in_progress_order' => 'Vous ne pouvez pas supprimer les commandes que des personnes sont en train de fabriquer !',
 
