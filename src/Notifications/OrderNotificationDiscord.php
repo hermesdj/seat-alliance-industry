@@ -2,14 +2,12 @@
 
 namespace RecursiveTree\Seat\AllianceIndustry\Notifications;
 
-use RecursiveTree\Seat\AllianceIndustry\AllianceIndustrySettings;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\SerializesModels;
 use RecursiveTree\Seat\AllianceIndustry\Models\OrderItem;
 use RecursiveTree\Seat\TreeLib\Helpers\PrioritySystem;
 use Seat\Notifications\Notifications\AbstractDiscordNotification;
 use Seat\Notifications\Notifications\AbstractNotification;
-use Illuminate\Notifications\Messages\SlackMessage;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Seat\Notifications\Services\Discord\Messages\DiscordEmbed;
 use Seat\Notifications\Services\Discord\Messages\DiscordEmbedField;
 use Seat\Notifications\Services\Discord\Messages\DiscordMessage;
@@ -20,40 +18,49 @@ class OrderNotificationDiscord extends AbstractDiscordNotification implements Sh
 
     private $orders;
 
-    public function __construct($orders){
+    public function __construct($orders)
+    {
         $this->orders = $orders;
     }
 
 
     protected function populateMessage(DiscordMessage $message, $notifiable)
     {
-        $message->content("New seat-alliance-industry orders are available!");
+        $message->content(trans('allianceindustry::ai-config.new_orders_are_available'));
 
         $displayed = $this->orders;
         $showMoreLink = false;
-        if($this->orders->count() > 10){
+        if ($this->orders->count() > 10) {
             $showMoreLink = true;
             $displayed = $this->orders->take(9);
         }
 
         $message->embed(function (DiscordEmbed $embed) use ($showMoreLink, $displayed) {
-            foreach ($displayed as $order){
+            foreach ($displayed as $order) {
                 $item_text = OrderItem::formatOrderItemsList($order);
                 $location = $order->location()->name;
                 $price = number_metric($order->price);
                 $totalPrice = number_metric($order->price * $order->quantity);
-                $priority = PrioritySystem::getPriorityData()[$order->priority]["name"] ?? trans("seat.web.unknown");
+                $priorityName = PrioritySystem::getPriorityData()[$order->priority]["name"];
+                $priority = $priorityName ? trans("allianceindustry::ai-orders.priority_$priorityName") : trans("seat.web.unknown");
 
                 $embed->field(function (DiscordEmbedField $field) use ($totalPrice, $price, $priority, $item_text, $location) {
+                    $value = trans('allianceindustry::ai-common.notifications_field_description', [
+                        'priority' => $priority,
+                        'price' => $price,
+                        'totalPrice' => $totalPrice,
+                        'location' => $location
+                    ]);
+
                     $field->name($item_text);
-                    $field->value("Priority: $priority | $price ISK/unit |  $totalPrice ISK total  | $location");
+                    $field->value($value);
                     $field->long();
                 });
             }
 
-            if($showMoreLink){
+            if ($showMoreLink) {
                 $embed->field(function (DiscordEmbedField $field) {
-                    $field->name("More Items");
+                    $field->name(trans('allianceindustry::ai-common.notification_more_items'));
                     $field->value(route("allianceindustry.orders"));
                     $field->long();
                 });

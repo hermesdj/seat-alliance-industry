@@ -1,15 +1,16 @@
 @extends('web::layouts.grids.12')
 
-@section('title', "Order")
-@section('page_header', "Order")
+@section('title', trans('allianceindustry::ai-orders.order_title'))
+@section('page_header', trans('allianceindustry::ai-orders.order_title'))
 
 
 @section('full')
     <div class="card">
         <div class="card-body">
             <h5 class="card-header d-flex flex-row align-items-center px-1">
-                Orders
-                <a href="{{ route("allianceindustry.orders") }}" class="btn btn-primary ml-auto">Back</a>
+                {{trans('allianceindustry::ai-orders.orders_title')}}
+                <a href="{{ route("allianceindustry.orders") }}"
+                   class="btn btn-primary ml-auto">{{trans('allianceindustry::ai-common.back')}}</a>
             </h5>
             <div class="card-text pt-3">
                 @include("allianceindustry::partials.orderTable",["orders"=>collect([$order])])
@@ -20,7 +21,8 @@
                             <form action="{{ route("allianceindustry.deleteOrder") }}" method="POST" class="mx-1">
                                 @csrf
                                 <input type="hidden" name="order" value="{{ $order->id }}">
-                                <button type="submit" class="btn btn-danger">Close this Order</button>
+                                <button type="submit"
+                                        class="btn btn-danger">{{trans('allianceindustry::ai-orders.close_order_btn')}}</button>
                             </form>
                         @endif
 
@@ -29,8 +31,8 @@
                                 @csrf
                                 <input type="hidden" name="order" value="{{ $order->id }}">
                                 <button type="submit" class="btn btn-secondary confirmform"
-                                        data-seat-action="update the price? Manual prices will be overwritten!">Update
-                                    Price
+                                        data-seat-action="{{trans('allianceindustry::ai-orders.update_price_action')}}">
+                                    {{trans('allianceindustry::ai-orders.update_price_btn')}}
                                 </button>
                             </form>
                         @endif
@@ -40,7 +42,8 @@
                                 @csrf
                                 <input type="hidden" name="order" value="{{ $order->id }}">
                                 <button type="submit" class="btn btn-secondary confirmform"
-                                        data-seat-action=" want to expand the time to deliver by 1 week">Extend Time
+                                        data-seat-action="{{trans('allianceindustry::ai-orders.extend_time_action')}}">
+                                    {{trans('allianceindustry::ai-orders.extend_time_btn')}}
                                 </button>
                             </form>
                         @endif
@@ -78,11 +81,10 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-header px-1">
-                    Repeating Order
+                    {{trans('allianceindustry::ai-orders.repeating_order_title')}}
                 </h5>
                 <div class="card-text pt-3">
-                    This is a order repeating itself every {{ number($order->repeat_interval,0) }} days. The next
-                    repetition will be published on the {{ $order->repeat_date }}.
+                    {{trans('allianceindustry::ai-orders.repeating_order_desc', ['days' => number($order->repeat_interval,0), 'date' => $order->repeat_date])}}
                 </div>
             </div>
         </div>
@@ -92,7 +94,7 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-header px-1">
-                    Deliveries
+                    {{trans('allianceindustry::ai-deliveries.deliveries_title')}}
                 </h5>
                 <div class="card-text pt-3">
                     @include("allianceindustry::partials.deliveryTable",["deliveries"=>$order->deliveries])
@@ -105,7 +107,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-header px-1">
-                            Supply Item
+                            {{trans('allianceindustry::ai-deliveries.supply_item_title')}}
                         </h5>
                         <div class="card-text my-3">
 
@@ -113,7 +115,7 @@
                                 @csrf
 
                                 <div class="form-group">
-                                    <label for="quantity">Quantity</label>
+                                    <label for="quantity">{{trans('allianceindustry::ai-common.quantity_header')}}</label>
                                     <input type="number"
                                            min="1"
                                            max="{{ $order->quantity - $order->assignedQuantity() }}"
@@ -125,7 +127,8 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">Supply this Item</button>
+                                    <button type="submit"
+                                            class="btn btn-primary">{{trans('allianceindustry::ai-deliveries.supply_item_btn')}}</button>
                                 </div>
                             </form>
                         </div>

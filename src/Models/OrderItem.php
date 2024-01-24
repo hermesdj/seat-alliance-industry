@@ -14,11 +14,13 @@ class OrderItem extends Model implements ToEveItem, HasTypeID
 
     protected $table = 'seat_alliance_industry_order_items';
 
-    public function type(){
+    public function type()
+    {
         return $this->hasOne(InvType::class, 'typeID', 'type_id');
     }
 
-    public function order(){
+    public function order()
+    {
         return $this->hasOne(Order::class, 'id', 'order_id');
     }
 
@@ -29,9 +31,10 @@ class OrderItem extends Model implements ToEveItem, HasTypeID
         return $item;
     }
 
-    public static function formatOrderItemsList($order){
+    public static function formatOrderItemsList($order)
+    {
         $items = $order->items;
-        if($items->count()>1) {
+        if ($items->count() > 1) {
             $item_text = $items
                 ->take(3)
                 ->map(function ($item) {
@@ -41,15 +44,15 @@ class OrderItem extends Model implements ToEveItem, HasTypeID
             $count = $items->count();
             if ($count > 3) {
                 $count -= 3;
-                $item_text .= ", +$count other";
+                $item_text .= trans('allianceindustry::ai-common.other_label', ['count' => $count]);
             }
             return $item_text;
-        } else if($items->count()==1) {
+        } else if ($items->count() == 1) {
             $item = $items->first();
             $name = $item->type->typeName;
             return "$item->quantity $name";
         } else {
-            return "invalid order";
+            return trans('allianceindustry::ai-orders.invalid_order_label');
         }
     }
 
