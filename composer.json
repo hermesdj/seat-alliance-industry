@@ -1,5 +1,5 @@
 {
-  "name": "recursivetree/seat-alliance-industry",
+  "name": "hermesdj/seat-alliance-industry",
   "description": "Plan industry operations across an alliance",
   "license": "MIT",
   "type": "seat-plugin",
@@ -7,6 +7,10 @@
     {
       "name": "recursivetree",
       "email": "recursivetreemail@gmail.com"
+    },
+    {
+      "name": "Jay's",
+      "email": "jays.gaming.contact@gmail.com"
     }
   ],
   "autoload": {
