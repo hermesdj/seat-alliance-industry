@@ -11,6 +11,7 @@ class AllianceIndustryApi
     public static function create_orders($data){
         $location_id = $data["location"] ?? 60003760;
 
+        // TODO toMultibuy ??
         $multibuy = $data["items"]->toMultibuy();
 
         $stations = UniverseStation::all();
