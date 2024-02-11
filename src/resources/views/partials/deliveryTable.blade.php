@@ -2,21 +2,21 @@
     <thead>
     <tr>
         @if($showOrder ?? false)
-            <th>Order</th>
+            <th>{{trans('allianceindustry::ai-orders.order_title')}}</th>
         @endif
-        <th>Amount</th>
-        <th>Completed</th>
+        <th>{{trans('allianceindustry::ai-common.amount_header')}}</th>
+        <th>{{trans('allianceindustry::ai-common.completion_header')}}</th>
         @if($showOrder ?? false)
-            <th>Unit Price</th>
+            <th>{{trans('allianceindustry::ai-common.unit_price_header')}}</th>
         @endif
-        <th>Total Price</th>
-        <th>Accepted</th>
+        <th>{{trans('allianceindustry::ai-common.total_price_header')}}</th>
+        <th>{{trans('allianceindustry::ai-common.accepted_header')}}</th>
         @if($showOrder ?? false)
-            <th>Ordered By</th>
+            <th>{{trans('allianceindustry::ai-common.ordered_by_header')}}</th>
         @endif
-        <th>Producer</th>
-        <th>Location</th>
-        <th>Actions</th>
+        <th>{{trans('allianceindustry::ai-common.producer_header')}}</th>
+        <th>{{trans('allianceindustry::ai-common.location_header')}}</th>
+        <th>{{trans('allianceindustry::ai-common.actions_header')}}</th>
     </tr>
     </thead>
     <tbody>
@@ -48,11 +48,13 @@
                 @include("allianceindustry::partials.time",["date"=>$delivery->accepted])
             </td>
             @if($showOrder ?? false)
-                <td data-order="{{ $delivery->order->user->id ?? 0}}" data-filter="{{ $delivery->order->user->main_character->name ?? trans('web::seat.unknown')}}">
+                <td data-order="{{ $delivery->order->user->id ?? 0}}"
+                    data-filter="{{ $delivery->order->user->main_character->name ?? trans('web::seat.unknown')}}">
                     @include("web::partials.character",["character"=>$delivery->order->user->main_character ?? null])
                 </td>
             @endif
-            <td data-order="{{ $delivery->user->id ?? 0}}" data-filter="{{ $delivery->user->main_character->name ?? trans('web::seat.unknown')}}">
+            <td data-order="{{ $delivery->user->id ?? 0}}"
+                data-filter="{{ $delivery->user->main_character->name ?? trans('web::seat.unknown')}}">
                 @include("web::partials.character",["character"=>$delivery->user->main_character ?? null])
             </td>
             <td data-order="{{ $delivery->order->location_id }}" data-filter="{{ $delivery->order->location()->name }}">
@@ -60,30 +62,35 @@
             </td>
             <td class="d-flex flex-row">
                 @can("allianceindustry.same-user",$delivery->user_id)
-                    <form action="{{ route("allianceindustry.setDeliveryState",$delivery->order_id) }}" method="POST" style="width: 50%">
+                    <form action="{{ route("allianceindustry.setDeliveryState",$delivery->order_id) }}" method="POST"
+                          style="width: 50%">
                         @csrf
                         <input type="hidden" name="delivery" value="{{ $delivery->id }}">
 
                         @if($delivery->completed)
                             <button type="submit" class="btn btn-warning text-nowrap confirmform btn-block"
-                                    data-seat-action="mark this delivery as in progress">In Progress
+                                    data-seat-action="{{trans('allianceindustry::ai-deliveries.mark_in_progress_action')}}">
+                                {{trans('allianceindustry::ai-deliveries.status_in_progress')}}
                             </button>
                             <input type="hidden" name="completed" value="0">
                         @else
                             <button type="submit" class="btn btn-primary text-nowrap confirmform btn-block"
-                                    data-seat-action="mark this delivery as delivered">Delivered
+                                    data-seat-action="{{trans('allianceindustry::ai-deliveries.mark_delivered_action')}}">
+                                {{trans('allianceindustry::ai-deliveries.status_delivered')}}
                             </button>
                             <input type="hidden" name="completed" value="1">
                         @endif
                     </form>
 
                     @if(!$delivery->completed || auth()->user()->can("allianceindustry.admin"))
-                        <form action="{{ route("allianceindustry.deleteDelivery",$delivery->order_id) }}" method="POST" style="width: 50%">
+                        <form action="{{ route("allianceindustry.deleteDelivery",$delivery->order_id) }}" method="POST"
+                              style="width: 50%">
                             @csrf
                             <input type="hidden" name="delivery" value="{{ $delivery->id }}">
 
                             <button type="submit" class="btn btn-danger text-nowrap confirmform ml-1 btn-block"
-                                    data-seat-action="cancel this delivery">Cancel Delivery
+                                    data-seat-action="{{trans('allianceindustry::ai-deliveries.cancel_delivery_action')}}">
+                                {{trans('allianceindustry::ai-deliveries.cancel_delivery_btn')}}
                             </button>
                         </form>
                     @endif

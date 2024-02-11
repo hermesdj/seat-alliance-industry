@@ -1,16 +1,16 @@
 <table class="data-table table table-striped table-hover">
     <thead>
     <tr>
-        <th>Tags</th>
-        <th>Order</th>
-        <th>Quantity</th>
-        <th>Completed</th>
-        <th>Price</th>
-        <th>Total Price</th>
-        <th>Location</th>
-        <th>Created</th>
-        <th>Until</th>
-        <th>Character</th>
+        <th>{{trans('allianceindustry::ai-common.tags_header')}}</th>
+        <th>{{trans('allianceindustry::ai-orders.order_title')}}</th>
+        <th>{{trans('allianceindustry::ai-common.quantity_header')}}</th>
+        <th>{{trans('allianceindustry::ai-common.completion_header')}}</th>
+        <th>{{trans('allianceindustry::ai-common.price_header')}}</th>
+        <th>{{trans('allianceindustry::ai-common.total_price_header')}}</th>
+        <th>{{trans('allianceindustry::ai-common.location_header')}}</th>
+        <th>{{trans('allianceindustry::ai-common.created_header')}}</th>
+        <th>{{trans('allianceindustry::ai-common.until_header')}}</th>
+        <th>{{trans('allianceindustry::ai-common.character_header')}}</th>
     </tr>
     </thead>
     <tbody>
@@ -19,7 +19,7 @@
             <td data-sort="{{ $order->priority }}" data-filter="_">
                 @include("treelib::partials.priority",["priority"=>$order->priority])
                 @if($order->is_repeating)
-                    <span class="badge badge-secondary">Repeating</span>
+                    <span class="badge badge-secondary">{{trans('allianceindustry::ai-common.repeating_badge')}}</span>
                 @endif
             </td>
             <td>
@@ -49,7 +49,8 @@
             <td data-sort="{{ carbon($order->produce_until)->timestamp }}" data-filter="_">
                 @include("allianceindustry::partials.time",["date"=>$order->produce_until])
             </td>
-            <td data-sort="{{ $order->user->id ?? 0 }}" data-filter="{{ $order->user->main_character->name ?? "deleted user"}}">
+            <td data-sort="{{ $order->user->id ?? 0 }}"
+                data-filter="{{ $order->user->main_character->name ?? "deleted user"}}">
                 @include("web::partials.character",["character"=>$order->user->main_character ?? null])
             </td>
         </tr>

@@ -20,12 +20,12 @@ class SendOrderNotifications implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, NotificationDispatchTool;
 
 
-    public function tags()
+    public function tags(): array
     {
         return ["seat-alliance-industry", "order","notifications"];
     }
 
-    public function handle()
+    public function handle(): void
     {
         $now = now();
         $last_notifications = AllianceIndustrySettings::$LAST_NOTIFICATION_BATCH->get();
@@ -44,7 +44,8 @@ class SendOrderNotifications implements ShouldQueue
     }
 
     //stolen from https://github.com/eveseat/notifications/blob/master/src/Observers/UserObserver.php
-    private function dispatchNotification($orders){
+    private function dispatchNotification($orders): void
+    {
         $groups = NotificationGroup::with('alerts')
             ->whereHas('alerts', function ($query) {
                 $query->where('alert', 'seat_alliance_industry_new_order_notification');
