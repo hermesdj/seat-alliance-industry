@@ -3,14 +3,15 @@
 return [
     'create_order_title' => 'Create Order',
 
-    'order_title' => 'Order',
+    'order_title' => 'Order N°:code',
     'orders_title' => 'Orders',
+    'order_reference' => 'Order Reference',
     'your_orders_title' => 'Your Orders',
 
     'repeating_order_title' => 'Repeating Order',
     'repeating_order_desc' => 'This is a order repeating itself every :days days. The next repetition will be published on the :date.',
 
-    'items' => 'Items',
+    'items_label' => 'Items',
     'items_placeholder' => "MULTIBUY:\nTristan 100\nOmen 100\nTritanium 30000\n\nFITTINGS:\n[Pacifier, 2022 Scanner]\n\nCo-Processor II\nCo-Processor II\n\nMultispectrum Shield Hardener II\nMultispectrum Shield Hardener II\n\nSmall Tractor Beam II\nSmall Tractor Beam II",
     'split_items' => 'Split items into separate orders',
 
@@ -29,6 +30,14 @@ return [
     'priority_Important' => 'Important',
     'priority_Critical' => 'Critical',
 
+    'no_delivery' => 'No delivery',
+
+    'quantity_label' => 'Quantity',
+    'quantity_hint' => 'The number of times to multiply every items with. Useful to order multiple ship fits for example',
+
+    'reference_label' => 'Reference',
+    'reference_hint' => 'Provide a name for this order. Leaving empty will fill the name with the generated order code. If a fit is provided in the text field below, and this field is empty, the name of the fit will be set as reference.',
+
     'seat_inventory_label' => 'Seat-Inventory',
     'seat_inventory_hint' => 'Add as source to seat-inventory',
     'seat_inventory_desc' => 'As soon as a delivery for this order is created, a item source will be added to seat-inventory. Once the delivery is marked as completed, the source will be removed. The source will be added to the <u>first</u> workspace containing <code>add2allianceindustry</code> at any position in it\'s name. You can rename workspaces <a href=":route">here.</a>',
@@ -43,7 +52,7 @@ return [
 
     'invalid_order_label' => 'invalid order',
 
-    'close_order_btn' => 'Close this Order',
+    'close_order_btn' => 'Close Order',
     'update_price_btn' => 'Update Price',
     'update_price_action' => 'update the price? Manual prices will be overwritten!',
     'extend_time_btn' => 'Extend Time',
@@ -59,4 +68,44 @@ return [
     'update_time_success' => 'Extended the time!',
     'update_price_success' => 'Updated the price!',
     'close_order_success' => 'Successfully closed order!',
+
+    'order_id' => 'Order Code',
+    'reserve_corp_btn' => 'Reserve Corp',
+    'confirm_order_btn' => 'Confirm Order',
+
+    'items' => [
+        'headers' => [
+            'type' => 'Item',
+            'quantity' => 'Quantity',
+            'unit_price' => 'Unit Price',
+            'total' => 'Total'
+        ]
+    ],
+
+    'fields' => [
+        'date' => 'Date',
+        'code' => 'Order N°',
+        'location' => 'Location',
+        'quantities' => 'Total Quantities',
+        'corporation' => 'Reserved By'
+    ],
+
+    'summary' => [
+        'title' => 'Summary',
+        'order_total' => 'Total Ordered',
+        'in_delivery' => 'In Delivery',
+        'delivered' => 'Delivered',
+        'remaining' => 'Remaining'
+    ],
+
+    'notifications' => [
+        'new_order' => 'New Order :code is available !',
+        'order_details' => 'Order details :',
+        'order_price' => 'Price',
+        'nb_items' => 'Nb Items',
+        'location' => 'Location',
+        'reference' => 'Reference',
+        'expiring_order' => 'Order :code Expiration !',
+        'expiring_message' => 'This order will expire in :remaining !'
+    ]
 ];

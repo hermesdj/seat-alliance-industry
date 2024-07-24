@@ -6,6 +6,7 @@ return [
     'menu_deliveries' => 'Deliveries',
     'menu_settings' => 'Settings',
     'menu_about' => 'About',
+    'menu_create_order' => 'Create Order',
 
     'cancel' => 'Cancel',
     'back' => 'Back',
@@ -14,23 +15,27 @@ return [
     'price_provider_hint' => 'The source of the prices used to calculate the order price.',
     'price_provider_create_success' => 'Successfully created price provider.',
 
-    'amount_header' => 'Amount',
+    'amount_header' => 'Quantity',
     'completion_header' => 'Completed',
     'price_header' => 'Price',
     'unit_price_header' => 'Unit Price',
     'total_price_header' => 'Total Price',
+    'order_price_header' => 'Order Price',
+    'delivery_price_header' => 'Delivery Price',
     'accepted_header' => 'Accepted',
     'ordered_by_header' => 'Ordered By',
     'producer_header' => 'Producer',
     'location_header' => 'Location',
 
     'tags_header' => 'Tags',
-    'quantity_header' => 'Quantity',
+    'quantity_header' => 'Total',
     'created_header' => 'Created',
     'until_header' => 'Until',
     'character_header' => 'Character',
 
     'actions_header' => 'Actions',
+
+    'total_label' => 'Total',
 
     'other_label' => ', +:count other',
 
@@ -57,6 +62,17 @@ return [
     // Deliveries errors
     'error_delivery_not_assignable_to_repeating_order' => 'Repeating orders can\'t have deliveries',
     'error_no_quantity_provided' => 'Quantity must be larger than 0',
+    'error_delivery_is_empty' => 'A delivery cannot contain 0 items',
     'error_too_much_quantity_provided' => 'Quantity must be smaller than the remaining quantity',
     'error_delivery_not_found' => 'Could not find delivery',
+    'error_item_order_id_does_not_match' => 'An item provided does not match the selected order !',
+    'error_delivery_item_not_found' => 'The item does not exists.',
+    'error_not_allowed_to_create_delivery' => 'You are not allowed to deliver for this order.',
+
+    'statistics' => [
+        'completed_orders' => 'Completed Orders',
+        'mean_order_completion_time' => 'Mean Order Completion Time',
+        'completed_deliveries' => 'Completed Deliveries',
+        'mean_delivery_completion_time' => 'Mean Delivery Completion Time'
+    ]
 ];

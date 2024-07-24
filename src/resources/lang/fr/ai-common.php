@@ -6,6 +6,7 @@ return [
     'menu_deliveries' => 'Livraisons',
     'menu_settings' => 'Paramètres',
     'menu_about' => 'À propos',
+    'menu_create_order' => 'Nouvelle Commande',
 
     'cancel' => 'Annuler',
     'back' => 'Retour',
@@ -14,23 +15,27 @@ return [
     'price_provider_hint' => 'La source des prix utilisée pour calculer le prix de la commande.',
     'price_provider_create_success' => 'Fournisseur de prix créé avec succès.',
 
-    'amount_header' => 'Montant',
+    'amount_header' => 'Quantité',
     'completion_header' => 'Complété',
     'price_header' => 'Prix',
     'unit_price_header' => 'Prix unitaire',
+    'order_price_header' => 'Prix Commande',
+    'delivery_price_header' => 'Prix Livraison',
     'total_price_header' => 'Prix total',
     'accepted_header' => 'Accepté',
     'ordered_by_header' => 'Commandé par',
-    'producer_header' => 'Producteur',
+    'producer_header' => 'Fabricant',
     'location_header' => 'Emplacement',
 
     'tags_header' => 'Tags',
-    'quantity_header' => 'Quantité',
+    'quantity_header' => 'Total',
     'created_header' => 'Créé',
     'until_header' => 'Jusqu\'à',
     'character_header' => 'Personnage',
 
     'actions_header' => 'Actions',
+
+    'total_label' => 'Total',
 
     'other_label' => ', +:count autre',
 
@@ -57,6 +62,17 @@ return [
     // Deliveries errors
     'error_delivery_not_assignable_to_repeating_order' => 'Les commandes répétées ne peuvent pas être livrées',
     'error_no_quantity_provided' => 'La quantité doit être supérieure à.0',
+    'error_delivery_is_empty' => 'Une livraison doit contenir des lignes de quantité > 0',
     'error_too_much_quantity_provided' => 'La quantité doit être inférieure à la quantité restante',
     'error_delivery_not_found' => 'Impossible de trouver la livraison',
+    'error_item_order_id_does_not_match' => 'Une ligne fournie en paramètre ne correspond pas à la bonne commande !',
+    'error_delivery_item_not_found' => 'La Ligne de livraison n\'existe pas',
+    'error_not_allowed_to_create_delivery' => 'Vous n\'êtes pas autorisé à livrer pour cette commande.',
+
+    'statistics' => [
+        'completed_orders' => 'Commandes Terminées',
+        'mean_order_completion_time' => 'Temps Moyen Commande',
+        'completed_deliveries' => 'Livraisons Terminées',
+        'mean_delivery_completion_time' => 'Temps Moyen Livraison'
+    ]
 ];

@@ -13,24 +13,31 @@
                    class="btn btn-danger ml-auto">{{trans('allianceindustry::ai-common.cancel')}}</a>
             </h5>
             <p class="card-text">
-
             <form action="{{ route("allianceindustry.submitOrder") }}" method="POST" id="orderForm">
                 @csrf
 
                 <div class="form-group">
-                    <label for="itemsTextarea">{{trans('allianceindustry::ai-orders.items')}}</label>
+                    <label for="reference">{{trans('allianceindustry::ai-orders.reference_label')}}</label>
+                    <input type="text" id="reference" class="form-control" maxlength="32"
+                           name="reference">
+                    <small class="text-muted">{{trans('allianceindustry::ai-orders.reference_hint')}}</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="quantity">{{trans('allianceindustry::ai-orders.quantity_label')}}</label>
+                    <input type="number" id="quantity" class="form-control" value="1" min="1" step="1"
+                           name="quantity">
+                    <small class="text-muted">{{trans('allianceindustry::ai-orders.quantity_hint')}}</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="itemsTextarea">{{trans('allianceindustry::ai-orders.items_label')}}</label>
                     <textarea
                             id="itemsTextarea"
                             name="items"
                             class="form-control"
                             placeholder="{{trans('allianceindustry::ai-orders.items_placeholder')}}"
                             rows="20">{{ $multibuy ?? "" }}</textarea>
-
-                    <div class="form-check">
-                        <input type="checkbox" id="splitOrders" class="form-check-input" name="splitOrders" checked>
-                        <label for="splitOrders"
-                               class="form-check-label">{{trans('allianceindustry::ai-orders.split_items')}}</label>
-                    </div>
                 </div>
 
                 @if($allowPriceProviderSelection)
@@ -47,13 +54,6 @@
                            name="profit">
                     <small class="text-muted">{{trans('allianceindustry::ai-orders.reward_hint', ['mpp' => $mpp])}}
                         %</small>
-
-                    <div class="form-check">
-                        <input type="checkbox" id="addProfitToManualPrices" class="form-check-input" checked
-                               name="addProfitToManualPrices">
-                        <label for="addProfitToManualPrices"
-                               class="form-check-label">{{trans('allianceindustry::ai-orders.add_profit_to_manual_prices_label')}}</label>
-                    </div>
                 </div>
 
                 <div class="form-group">
@@ -75,35 +75,40 @@
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label for="priority">{{trans('allianceindustry::ai-orders.priority_label')}}</label>
-                    <select id="priority" class="form-control" name="priority">
-                        @foreach(\RecursiveTree\Seat\TreeLib\Helpers\PrioritySystem::getPriorityData() as $priority=>$data)
-                            <option value="{{$priority}}">{{trans('allianceindustry::ai-orders.priority_' . $data["name"])}}</option>
-                        @endforeach
-                    </select>
-                </div>
+                @can("allianceindustry.order_priority")
+                    <div class="form-group">
+                        <label for="priority">{{trans('allianceindustry::ai-orders.priority_label')}}</label>
+                        <select id="priority" class="form-control" name="priority">
+                            @foreach(\RecursiveTree\Seat\TreeLib\Helpers\PrioritySystem::getPriorityData() as $priority=>$data)
+                                <option value="{{$priority}}" @selected($priority == $defaultPriority)>{{trans('allianceindustry::ai-orders.priority_' . $data["name"])}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                @endcan
 
                 @if(\RecursiveTree\Seat\TreeLib\Helpers\SeatInventoryPluginHelper::pluginIsAvailable())
-                    <div class="form-group">
-                        <label for="addToSeatInventory">{{trans('allianceindustry::ai-orders.seat_inventory_label')}}</label>
-                        <div class="form-check">
-                            <input type="checkbox" id="addToSeatInventory" class="form-check-input" checked
-                                   name="addToSeatInventory">
-                            <label for="addToSeatInventory"
-                                   class="form-check-label">{{trans('allianceindustry::ai-orders.seat_inventory_hint')}}</label>
+                    @can("allianceindustry.add_to_seat_inventory")
+                        <div class="form-group" style="display: none;">
+                            <label for="addToSeatInventory">{{trans('allianceindustry::ai-orders.seat_inventory_label')}}</label>
+                            <div class="form-check">
+                                <input type="checkbox" id="addToSeatInventory" class="form-check-input" checked
+                                       name="addToSeatInventory">
+                                <label for="addToSeatInventory"
+                                       class="form-check-label">{{trans('allianceindustry::ai-orders.seat_inventory_hint')}}</label>
+                            </div>
+                            <small class="text-muted">
+                                {!! trans('allianceindustry::ai-orders.seat_inventory_desc', ['route' => route("inventory.settings")]) !!}
+                            </small>
                         </div>
-                        <small class="text-muted">
-                            {!! trans('allianceindustry::ai-orders.seat_inventory_desc', ['route' => route("inventory.settings")]) !!}
-                        </small>
-                    </div>
+                    @endcan
                 @endif
 
                 @can("allianceindustry.create_repeating_orders")
                     <div class="form-group">
                         <label for="repetition">{{trans('allianceindustry::ai-orders.repetition_label')}}</label>
                         <select id="repetition" name="repetition" class="form-control">
-                            <option value="0" selected>{{trans('allianceindustry::ai-orders.repetition_never')}}</option>
+                            <option value="0"
+                                    selected>{{trans('allianceindustry::ai-orders.repetition_never')}}</option>
                             <option value="7">{{trans('allianceindustry::ai-orders.repetition_weekly')}}</option>
                             <option value="14">{{trans('allianceindustry::ai-orders.repetition_every_two_weeks')}}</option>
                             <option value="28">{{trans('allianceindustry::ai-orders.repetition_monthly')}}</option>

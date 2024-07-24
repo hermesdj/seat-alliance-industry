@@ -1,11 +1,13 @@
 <table class="data-table table table-striped table-hover">
     <thead>
     <tr>
-        <th>{{trans('allianceindustry::ai-common.tags_header')}}</th>
-        <th>{{trans('allianceindustry::ai-orders.order_title')}}</th>
+        @can("allianceindustry.order_priority")
+            <th>{{trans('allianceindustry::ai-common.tags_header')}}</th>
+        @endcan
+        <th>{{trans('allianceindustry::ai-orders.order_id')}}</th>
+        <th>{{trans('allianceindustry::ai-orders.order_reference')}}</th>
         <th>{{trans('allianceindustry::ai-common.quantity_header')}}</th>
         <th>{{trans('allianceindustry::ai-common.completion_header')}}</th>
-        <th>{{trans('allianceindustry::ai-common.price_header')}}</th>
         <th>{{trans('allianceindustry::ai-common.total_price_header')}}</th>
         <th>{{trans('allianceindustry::ai-common.location_header')}}</th>
         <th>{{trans('allianceindustry::ai-common.created_header')}}</th>
@@ -16,17 +18,22 @@
     <tbody>
     @foreach($orders as $order)
         <tr>
-            <td data-sort="{{ $order->priority }}" data-filter="_">
-                @include("treelib::partials.priority",["priority"=>$order->priority])
-                @if($order->is_repeating)
-                    <span class="badge badge-secondary">{{trans('allianceindustry::ai-common.repeating_badge')}}</span>
-                @endif
+            @can("allianceindustry.order_priority")
+                <td data-sort="{{ $order->priority }}" data-filter="_">
+                    @include("treelib::partials.priority",["priority"=>$order->priority])
+                    @if($order->is_repeating)
+                        <span class="badge badge-secondary">{{trans('allianceindustry::ai-common.repeating_badge')}}</span>
+                    @endif
+                </td>
+            @endcan
+            <td>
+                <a href="{{ route("allianceindustry.orderDetails",$order->id) }}">{{ $order->order_id }}</a>
             </td>
             <td>
-                <a href="{{ route("allianceindustry.orderDetails",$order->id) }}">{{ \RecursiveTree\Seat\AllianceIndustry\Models\OrderItem::formatOrderItemsList($order) }}</a>
+                {{ $order->reference }} x{{$order->quantity}}
             </td>
             <td data-sort="{{ $order->quantity - $order->assignedQuantity() }}" data-filter="_">
-                {{number($order->assignedQuantity(),0)}}/{{ number($order->quantity,0) }}
+                {{number($order->assignedQuantity(),0)}}/{{ number($order->totalQuantity(),0) }}
             </td>
             <td data-sort="{{ $order->completed_at?carbon($order->completed_at)->timestamp:0 }}" data-filter="_">
                 @include("allianceindustry::partials.boolean",["value"=>$order->completed])
@@ -34,11 +41,8 @@
                     @include("allianceindustry::partials.time",["date"=>$order->completed_at])
                 @endif
             </td>
-            <td data-sort="{{$order->price}}" data-filter="_">
-                {{ number($order->price) }} ISK
-            </td>
-            <td data-sort="{{ $order->price * $order->quantity }}" data-filter="_">
-                {{ number($order->price * $order->quantity) }} ISK
+            <td data-sort="{{ $order->price / 100 }}" data-filter="_">
+                {{ number(($order->totalValue())) }} ISK
             </td>
             <td data-sort="{{ $order->location_id }}" data-filter="{{ $order->location()->name }}">
                 @include("allianceindustry::partials.longTextTooltip",["text"=>$order->location()->name,"length"=>25])

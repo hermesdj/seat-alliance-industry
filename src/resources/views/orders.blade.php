@@ -5,6 +5,7 @@
 
 
 @section('full')
+    @include('allianceindustry::partials.statistics', ['statistics' => $statistics])
     <div class="card">
         <div class="card-body">
             <h5 class="card-header d-flex flex-row align-items-baseline">
@@ -41,7 +42,7 @@
 
 @push("javascript")
     <script>
-        $(document).ready( function () {
+        $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip()
             $('.data-table').DataTable({
                 stateSave: true,

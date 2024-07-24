@@ -2,6 +2,7 @@
 
 namespace RecursiveTree\Seat\AllianceIndustry\Observers;
 
+use RecursiveTree\Seat\AllianceIndustry\Models\Statistics\DeliveryStatistic;
 use RecursiveTree\Seat\TreeLib\Helpers\SeatInventoryPluginHelper;
 
 class DeliveryObserver
@@ -11,15 +12,14 @@ class DeliveryObserver
         self::updateOrderCompletionState($delivery);
     }
 
-    public static function saving($delivery){
+    public static function saving($delivery)
+    {
         //delivery is completed, remove the virtual source
         if ($delivery->completed) {
             self::deleteInventorySource($delivery);
-        }
-        //create/update the delivery
+        } //create/update the delivery
         else {
-
-            if(SeatInventoryPluginHelper::pluginIsAvailable()) {
+            if (SeatInventoryPluginHelper::pluginIsAvailable()) {
                 $order = $delivery->order;
                 $source = $delivery->seatInventorySource;
                 //check if we have to add a source
@@ -55,11 +55,23 @@ class DeliveryObserver
     {
         self::updateOrderCompletionState($delivery);
         self::deleteInventorySource($delivery);
+
+        foreach ($delivery->deliveryItems as $item) {
+            $item->delete();
+        }
+
+        DeliveryStatistic::create([
+            'order_id' => $delivery->order_id,
+            'delivery_id' => $delivery->id,
+            'user_id' => $delivery->user_id,
+            'accepted' => $delivery->accepted,
+            'completed_at' => $delivery->completed_at
+        ]);
     }
 
     private static function deleteInventorySource($delivery)
     {
-        if(SeatInventoryPluginHelper::pluginIsAvailable()) {
+        if (SeatInventoryPluginHelper::pluginIsAvailable()) {
             if ($delivery->seatInventorySource) {
                 foreach ($delivery->seatInventorySource->items as $item) {
                     $item->delete();
@@ -87,7 +99,7 @@ class DeliveryObserver
             }
         }
 
-        if ($order->assignedQuantity() >= $order->quantity && $is_completed) {
+        if ($order->assignedQuantity() >= $order->totalQuantity() && $is_completed) {
             $order->completed = true;
             $order->completed_at = now();
         } else {

@@ -8,6 +8,13 @@ return [
         'permission' => 'allianceindustry.view_orders',
         'entries' => [
             [
+                'name' => 'Create Order',
+                'label' => 'allianceindustry::ai-common.menu_create_order',
+                'icon' => 'fas fa-cart-plus',
+                'route' => 'allianceindustry.createOrder',
+                'permission' => 'allianceindustry.create_orders',
+            ],
+            [
                 'name' => 'Orders',
                 'label' => 'allianceindustry::ai-common.menu_orders',
                 'icon' => 'fas fa-list',

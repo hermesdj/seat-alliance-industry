@@ -11,11 +11,11 @@ class OrderNotificationMail extends AbstractMailNotification implements ShouldQu
 {
     use SerializesModels;
 
-    private $orders;
+    private $order;
 
-    public function __construct($orders)
+    public function __construct($order)
     {
-        $this->orders = $orders;
+        $this->orders = $order;
     }
 
     public function populateMessage(MailMessage $message, $notifiable)

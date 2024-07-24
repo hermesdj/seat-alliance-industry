@@ -3,97 +3,134 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group([
-    'namespace'  => 'RecursiveTree\Seat\AllianceIndustry\Http\Controllers',
+    'namespace' => 'RecursiveTree\Seat\AllianceIndustry\Http\Controllers',
     'middleware' => ['web', 'auth', 'locale'],
     'prefix' => 'allianceindustry',
 ], function () {
     Route::get('/about', [
-        'as'   => 'allianceindustry.about',
+        'as' => 'allianceindustry.about',
         'uses' => 'AllianceIndustryController@about',
         'middleware' => 'can:allianceindustry.view_orders'
     ]);
 
     Route::get('/orders', [
-        'as'   => 'allianceindustry.orders',
-        'uses' => 'AllianceIndustryController@orders',
+        'as' => 'allianceindustry.orders',
+        'uses' => 'AllianceIndustryOrderController@orders',
         'middleware' => 'can:allianceindustry.view_orders'
     ]);
 
     Route::get('/deliveries', [
-        'as'   => 'allianceindustry.deliveries',
-        'uses' => 'AllianceIndustryController@deliveries',
+        'as' => 'allianceindustry.deliveries',
+        'uses' => 'AllianceIndustryDeliveryController@deliveries',
         'middleware' => 'can:allianceindustry.create_deliveries'
     ]);
 
     Route::get('/settings', [
-        'as'   => 'allianceindustry.settings',
-        'uses' => 'AllianceIndustryController@settings',
+        'as' => 'allianceindustry.settings',
+        'uses' => 'AllianceIndustrySettingsController@settings',
         'middleware' => 'can:allianceindustry.settings'
     ]);
 
     Route::post('/settings/save', [
-        'as'   => 'allianceindustry.saveSettings',
-        'uses' => 'AllianceIndustryController@saveSettings',
+        'as' => 'allianceindustry.saveSettings',
+        'uses' => 'AllianceIndustrySettingsController@saveSettings',
         'middleware' => 'can:allianceindustry.settings'
     ]);
 
     Route::get('/order/{id}/details', [
-        'as'   => 'allianceindustry.orderDetails',
-        'uses' => 'AllianceIndustryController@orderDetails',
+        'as' => 'allianceindustry.orderDetails',
+        'uses' => 'AllianceIndustryOrderController@orderDetails',
         'middleware' => 'can:allianceindustry.view_orders'
     ]);
 
-    Route::post('/order/{id}/deliveries/add', [
-        'as'   => 'allianceindustry.addDelivery',
-        'uses' => 'AllianceIndustryController@addDelivery',
+    Route::post('/order/{id}/reserveCorp', [
+        'as' => 'allianceindustry.toggleReserveCorp',
+        'uses' => 'AllianceIndustryOrderController@toggleReserveCorp',
+        'middleware' => 'can:allianceindustry.corp_delivery'
+    ]);
+
+    Route::post('/order/{id}/confirmOrder', [
+        'as' => 'allianceindustry.confirmOrder',
+        'uses' => 'AllianceIndustryOrderController@confirmOrder',
+        'middleware' => 'can:allianceindustry.view_orders'
+    ]);
+
+    Route::get('/delivery/{id}/details', [
+        'as' => 'allianceindustry.deliveryDetails',
+        'uses' => 'AllianceIndustryDeliveryController@deliveryDetails',
         'middleware' => 'can:allianceindustry.create_deliveries'
     ]);
 
-    Route::post('/order/{id}/deliveries/state', [
-        'as'   => 'allianceindustry.setDeliveryState',
-        'uses' => 'AllianceIndustryController@setDeliveryState',
+    Route::get('/order/{id}/deliveries/prepare', [
+        'as' => 'allianceindustry.prepareDelivery',
+        'uses' => 'AllianceIndustryDeliveryController@prepareDelivery',
+        'middleware' => 'can:allianceindustry.create_deliveries'
+    ]);
+
+    Route::post('/order/{id}/deliveries/add', [
+        'as' => 'allianceindustry.addDelivery',
+        'uses' => 'AllianceIndustryDeliveryController@addDelivery',
         'middleware' => 'can:allianceindustry.create_deliveries'
     ]);
 
     Route::post('/order/delete', [
-        'as'   => 'allianceindustry.deleteOrder',
-        'uses' => 'AllianceIndustryController@deleteOrder',
+        'as' => 'allianceindustry.deleteOrder',
+        'uses' => 'AllianceIndustryOrderController@deleteOrder',
         'middleware' => 'can:allianceindustry.create_orders'
     ]);
 
-    Route::post('/order/{id}/deliveries/delete', [
-        'as'   => 'allianceindustry.deleteDelivery',
-        'uses' => 'AllianceIndustryController@deleteDelivery',
+
+    Route::post('/deliveries/{deliveryId}/state', [
+        'as' => 'allianceindustry.setDeliveryState',
+        'uses' => 'AllianceIndustryDeliveryController@setDeliveryState',
+        'middleware' => 'can:allianceindustry.create_deliveries'
+    ]);
+
+    Route::post('/deliveries/{deliveryId}/state/{itemId}', [
+        'as' => 'allianceindustry.setDeliveryItemState',
+        'uses' => 'AllianceIndustryDeliveryController@setDeliveryItemState',
+        'middleware' => 'can:allianceindustry.create_deliveries'
+    ]);
+
+    Route::post('/delivery/{deliveryId}/delete', [
+        'as' => 'allianceindustry.deleteDelivery',
+        'uses' => 'AllianceIndustryDeliveryController@deleteDelivery',
+        'middleware' => 'can:allianceindustry.create_deliveries'
+    ]);
+
+    Route::post('/delivery/{deliveryId}/delete/{itemId}', [
+        'as' => 'allianceindustry.deleteDeliveryItem',
+        'uses' => 'AllianceIndustryDeliveryController@deleteDeliveryItem',
         'middleware' => 'can:allianceindustry.create_deliveries'
     ]);
 
     Route::get('/orders/create', [
-        'as'   => 'allianceindustry.createOrder',
-        'uses' => 'AllianceIndustryController@createOrder',
+        'as' => 'allianceindustry.createOrder',
+        'uses' => 'AllianceIndustryOrderController@createOrder',
         'middleware' => 'can:allianceindustry.create_orders'
     ]);
 
     Route::post('/orders/update', [
-        'as'   => 'allianceindustry.updateOrderPrice',
-        'uses' => 'AllianceIndustryController@updateOrderPrice',
+        'as' => 'allianceindustry.updateOrderPrice',
+        'uses' => 'AllianceIndustryOrderController@updateOrderPrice',
         'middleware' => 'can:allianceindustry.create_orders'
     ]);
 
     Route::post('/orders/extend', [
-        'as'   => 'allianceindustry.extendOrderPrice',
-        'uses' => 'AllianceIndustryController@extendOrderTime',
+        'as' => 'allianceindustry.extendOrderPrice',
+        'uses' => 'AllianceIndustryOrderController@extendOrderTime',
         'middleware' => 'can:allianceindustry.create_orders'
     ]);
 
     Route::post('/orders/submit', [
-        'as'   => 'allianceindustry.submitOrder',
-        'uses' => 'AllianceIndustryController@submitOrder',
+        'as' => 'allianceindustry.submitOrder',
+        'uses' => 'AllianceIndustryOrderController@submitOrder',
         'middleware' => 'can:allianceindustry.create_orders'
     ]);
 
     Route::post('/user/orders/completed/delete', [
-        'as'   => 'allianceindustry.deleteCompletedOrders',
-        'uses' => 'AllianceIndustryController@deleteCompletedOrders',
+        'as' => 'allianceindustry.deleteCompletedOrders',
+        'uses' => 'AllianceIndustryOrderController@deleteCompletedOrders',
         'middleware' => 'can:allianceindustry.create_orders'
     ]);
 

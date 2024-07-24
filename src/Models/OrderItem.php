@@ -24,6 +24,11 @@ class OrderItem extends Model implements ToEveItem, HasTypeID
         return $this->hasOne(Order::class, 'id', 'order_id');
     }
 
+    public function deliveryItems()
+    {
+        return $this->hasMany(DeliveryItem::class, 'order_item_id', 'id');
+    }
+
     public function toEveItem(): PriceableEveItem
     {
         $item = new PriceableEveItem($this->type);
@@ -56,11 +61,35 @@ class OrderItem extends Model implements ToEveItem, HasTypeID
         }
     }
 
+    public static function formatOrderItemsForDiscord($order)
+    {
+        return $order->items->sortBy(function ($item) {
+            return $item->type->typeName;
+        })->map(function ($item) {
+            return "- " . $item->type->typeName . " " . "x" . $item->quantity;
+        })->join("\n");
+    }
+
     /**
      * @return int The eve type id of this object
      */
     public function getTypeID(): int
     {
         return $this->type_id;
+    }
+
+    public function unitPrice(): float
+    {
+        return $this->unit_price / 100;
+    }
+
+    public function assignedQuantity()
+    {
+        return $this->deliveryItems->sum("quantity_delivered");
+    }
+
+    public function availableQuantity()
+    {
+        return $this->quantity - $this->assignedQuantity();
     }
 }

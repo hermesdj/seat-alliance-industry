@@ -1,7 +1,9 @@
 <?php
 
-namespace RecursiveTree\Seat\AllianceIndustry\Notifications;
+namespace RecursiveTree\Seat\AllianceIndustry\Notifications\Expiration;
 
+use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\SerializesModels;
 use RecursiveTree\Seat\AllianceIndustry\Helpers\AllianceIndustryHelper;
@@ -10,7 +12,7 @@ use Seat\Notifications\Notifications\AbstractDiscordNotification;
 use Seat\Notifications\Services\Discord\Messages\DiscordEmbed;
 use Seat\Notifications\Services\Discord\Messages\DiscordMessage;
 
-class OrderNotificationDiscord extends AbstractDiscordNotification implements ShouldQueue
+class ExpiringOrderNotificationDiscord extends AbstractDiscordNotification implements ShouldQueue
 {
     use SerializesModels;
 
@@ -31,8 +33,8 @@ class OrderNotificationDiscord extends AbstractDiscordNotification implements Sh
 
                 $embed
                     ->author($order->user->name, "https://images.evetech.net/characters/$charId/portrait?size=64")
-                    ->title(trans('allianceindustry::ai-orders.notifications.new_order', ['code' => $order->order_id]), route('allianceindustry.orderDetails', ['id' => $order->id]))
-                    ->description(OrderItem::formatOrderItemsForDiscord($order))
+                    ->title(trans('allianceindustry::ai-orders.notifications.expiring_order', ['code' => $order->order_id]), route('allianceindustry.orderDetails', ['id' => $order->id]))
+                    ->description(trans('allianceindustry::ai-orders.notifications.expiring_message', ['remaining' => CarbonInterval::seconds(Carbon::now()->diffInSeconds($order->produce_until))]))
                     ->field(trans('allianceindustry::ai-orders.notifications.reference'), $order->reference)
                     ->field(trans('allianceindustry::ai-orders.notifications.order_price'), AllianceIndustryHelper::formatNumber($order->totalValue()) . ' ISK')
                     ->field(trans('allianceindustry::ai-orders.notifications.nb_items'), $order->items->count())

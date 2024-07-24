@@ -8,5 +8,11 @@ return [
             'slack' => \RecursiveTree\Seat\AllianceIndustry\Notifications\OrderNotificationSlack::class,
             'discord' => \RecursiveTree\Seat\AllianceIndustry\Notifications\OrderNotificationDiscord::class
         ],
+    ],
+    'seat_alliance_industry_expiring_order_notification' => [
+        'label' => 'allianceindustry::ai-config.seat_alliance_industry_expiring_order_notification',
+        'handlers' => [
+            'discord' => \RecursiveTree\Seat\AllianceIndustry\Notifications\Expiration\ExpiringOrderNotificationDiscord::class
+        ],
     ]
 ];

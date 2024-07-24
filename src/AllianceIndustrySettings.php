@@ -8,6 +8,9 @@ use RecursiveTree\Seat\TreeLib\Helpers\Setting;
 class AllianceIndustrySettings
 {
     public static $LAST_NOTIFICATION_BATCH;
+
+    public static $LAST_EXPIRING_NOTIFICATION_BATCH;
+
     public static $MINIMUM_PROFIT_PERCENTAGE;
     public static $ORDER_CREATION_PING_ROLES;
     public static $ALLOW_PRICES_BELOW_AUTOMATIC;
@@ -15,6 +18,8 @@ class AllianceIndustrySettings
     public static $DEFAULT_PRICE_PROVIDER;
     public static $ALLOW_PRICE_PROVIDER_SELECTION;
     public static $REMOVE_EXPIRED_DELIVERIES;
+
+    public static $DEFAULT_PRIORITY;
 
 
     //used in an earlier iteration of the notification system, still used in migrations
@@ -27,6 +32,7 @@ class AllianceIndustrySettings
         self::$DEFAULT_PRICE_PROVIDER = Setting::create("allianceindustry", "order.price.provider.default", true);
         self::$ALLOW_PRICE_PROVIDER_SELECTION = Setting::create("allianceindustry", "order.price.provider.change.allowed", true);
         self::$REMOVE_EXPIRED_DELIVERIES = Setting::create("allianceindustry", "deliveries.expired.remove", true);
+        self::$DEFAULT_PRIORITY = Setting::create("allianceindustry", "order.priority.default", true);
 
         //with manual key because it is migrated from the old settings system
         self::$MINIMUM_PROFIT_PERCENTAGE = Setting::createFromKey("recursivetree.allianceindustry.minimumProfitPercentage", true);
@@ -40,6 +46,7 @@ class AllianceIndustrySettings
             if (!is_numeric($price_provider)) {
                 self::$DEFAULT_PRICE_PROVIDER->set(null);
             }
-        } catch (QueryException $_) {}
+        } catch (QueryException $_) {
+        }
     }
 }
