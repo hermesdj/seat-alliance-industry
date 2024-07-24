@@ -87,7 +87,7 @@ class AllianceIndustryServiceProvider extends AbstractSeatPlugin
 
     public function getPackageRepositoryUrl(): string
     {
-        return 'https://github.com/recursivetree/seat-alliance-industry';
+        return 'https://github.com/hermesdj/seat-alliance-industry';
     }
 
     public function getPackagistPackageName(): string
@@ -97,6 +97,6 @@ class AllianceIndustryServiceProvider extends AbstractSeatPlugin
 
     public function getPackagistVendorName(): string
     {
-        return 'recursivetree';
+        return 'hermesdj';
     }
 }
