@@ -12,8 +12,7 @@ use RecursiveTree\Seat\AllianceIndustry\Models\Order;
 use Seat\Notifications\Models\NotificationGroup;
 use Seat\Notifications\Traits\NotificationDispatchTool;
 
-
-class SendOrderNotifications implements ShouldQueue
+class SendExpiredOrderNotifications implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, NotificationDispatchTool;
 
@@ -25,22 +24,6 @@ class SendOrderNotifications implements ShouldQueue
     public function handle(): void
     {
         $now = now();
-        $last_notifications = AllianceIndustrySettings::$LAST_NOTIFICATION_BATCH->get();
-
-        if ($last_notifications === null) {
-            $orders = Order::where('confirmed', true)->get();
-        } else {
-            $orders = Order::where("created_at", ">=", $last_notifications)
-                ->where('confirmed', true)
-                ->get();
-        }
-
-        if (!$orders->isEmpty()) {
-            foreach ($orders as $order) {
-                $this->dispatchNotification($order);
-            }
-        }
-
         $last_expiring = AllianceIndustrySettings::$LAST_EXPIRING_NOTIFICATION_BATCH->get();
 
         if ($last_expiring === null) {
@@ -61,21 +44,7 @@ class SendOrderNotifications implements ShouldQueue
             }
         }
 
-        AllianceIndustrySettings::$LAST_NOTIFICATION_BATCH->set($now);
         AllianceIndustrySettings::$LAST_EXPIRING_NOTIFICATION_BATCH->set($now->addHours(24));
-    }
-
-    //stolen from https://github.com/eveseat/notifications/blob/master/src/Observers/UserObserver.php
-    private function dispatchNotification($order): void
-    {
-        $groups = NotificationGroup::with('alerts')
-            ->whereHas('alerts', function ($query) {
-                $query->where('alert', 'seat_alliance_industry_new_order_notification');
-            })->get();
-
-        $this->dispatchNotifications("seat_alliance_industry_new_order_notification", $groups, function ($constructor) use ($order) {
-            return new $constructor($order);
-        });
     }
 
     private function dispatchExpiringOrderNotification($order): void

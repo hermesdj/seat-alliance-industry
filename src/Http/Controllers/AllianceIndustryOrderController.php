@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Gate;
 use RecursiveTree\Seat\AllianceIndustry\AllianceIndustrySettings;
 use RecursiveTree\Seat\AllianceIndustry\Helpers\AllianceIndustryHelper;
 use RecursiveTree\Seat\AllianceIndustry\Item\PriceableEveItem;
-use RecursiveTree\Seat\AllianceIndustry\Jobs\SendOrderNotifications;
+use RecursiveTree\Seat\AllianceIndustry\Jobs\SendOrderNotification;
 use RecursiveTree\Seat\AllianceIndustry\Jobs\UpdateRepeatingOrders;
 use RecursiveTree\Seat\AllianceIndustry\Models\Order;
 use RecursiveTree\Seat\AllianceIndustry\Models\OrderItem;
@@ -246,7 +246,7 @@ class AllianceIndustryOrderController extends Controller
         $order->save();
 
         //send notification that orders have been put up. We don't do it in an observer so it only gets triggered once
-        SendOrderNotifications::dispatch()->onQueue('notifications');
+        SendOrderNotification::dispatch($order);
 
         return redirect()->back();
     }
