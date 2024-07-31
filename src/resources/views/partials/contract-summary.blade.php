@@ -30,7 +30,7 @@
                     data-placement="top"
                     data-content="Copied!"
             >
-                {{ $delivery->order->user->name }}
+                {{ $delivery->order->deliver_to ? $delivery->order->deliverToCharacter->name : $delivery->order->user->name }}
             </b>
         </td>
     </tr>

@@ -4,6 +4,7 @@ namespace RecursiveTree\Seat\AllianceIndustry\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Seat\Eveapi\Models\Character\CharacterInfo;
 use Seat\Eveapi\Models\Corporation\CorporationInfo;
 use Seat\Eveapi\Models\Universe\UniverseStation;
 use Seat\Eveapi\Models\Universe\UniverseStructure;
@@ -34,6 +35,11 @@ class Order extends Model
     public function user()
     {
         return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    public function deliverToCharacter()
+    {
+        return $this->hasOne(CharacterInfo::class, 'character_id', 'deliver_to');
     }
 
     public function station()

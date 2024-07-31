@@ -29,5 +29,8 @@ return [
     'notifications_ping_role_hint' => 'Please copy&paste the discord role ids separated by a space. If you enable developer mode in your settings, you can get the IDs by clicking the role.',
 
     'update_settings_btn' => 'Update Settings',
-    'update_settings_success' => 'Successfully saved settings'
+    'update_settings_success' => 'Successfully saved settings',
+
+    'price_provider_whitelist_label' => 'Price Provider Whitelist',
+    'price_provider_whitelist_hint' => 'The selected price providers can be used by users who have the correct permissions.'
 ];

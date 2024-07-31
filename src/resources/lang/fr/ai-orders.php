@@ -15,8 +15,8 @@ return [
     'items_placeholder' => "MULTIBUY:\nTristan 100\nOmen 100\nTritanium 30000\n\nFITTINGS:\n[Pacifier, 2022 Scanner]\n\nCo-Processor II\nCo-Processor II\n\nMultispectrum Shield Hardener II\nMultispectrum Shield Hardener II\n\nSmall Tractor Beam II\nSmall Tractor Beam II",
     'split_items' => 'Séparer les objets en différentes commandes.',
 
-    'reward_label' => 'Récompense en %',
-    'reward_hint' => 'Le profit minimum est de :mpp',
+    'reward_label' => 'Profit en %',
+    'reward_hint' => 'Le profit minimum est de :mpp% et sera ajouté au prix calculé automatiquement. Un profit plus élevé peut encourager les producteurs à travailler plus vite.',
     'add_profit_to_manual_prices_label' => 'Ajouter une marge au prix manuel',
 
     'days_to_complete_label' => 'Jours pour compléter',
@@ -29,6 +29,8 @@ return [
     'priority_Preferred' => 'Priorisé',
     'priority_Important' => 'Important',
     'priority_Critical' => 'Critique',
+    'time_label' => 'Délai',
+    'time_hint' => 'Va ajouter le nombre de jour saisi au délai de la commande.',
 
     'quantity_label' => 'Quantité',
     'quantity_hint' => 'Le nombre de commandes à passer pour ce qui a été collé dans le champ. Utile pour commander plusieurs fois le même fit de vaisseau par exemple.',
@@ -40,6 +42,9 @@ return [
     'seat_inventory_hint' => 'Ajouter une source à seat-inventory',
     'seat_inventory_desc' => 'Dès que la livraison pour cette commande sera créée, une source d\'objet sera ajoutée à seat-inventory. Une fois que la livraison est marquée comme terminée, la source sera retirée. La source sera ajoutée au <u>premier</u> espace de travail contenant le label <code>add2allianceindustry</code> à n\'importe quelle position de son nom. Vous pouvez renommer les espaces de travail <a href=":route">içi</a>.',
     //'seat_inventory_desc' => 'As soon as a delivery for this order is created, a item source will be added to seat-inventory. Once the delivery is marked as completed, the source will be removed. The source will be added to the <u>first</u> workspace containing <code>add2allianceindustry</code> at any position in it\'s name. You can rename workspaces <a href=":route">here.</a>',
+
+    'deliver_to_label' => 'Livrer à',
+    'deliver_to_hint' => 'Sélectionnez le personnage à qui la commande doit être livrée',
 
     'repetition_label' => 'Répétition',
     'repetition_never' => 'Jamais',
@@ -109,5 +114,16 @@ return [
         'reference' => 'Référence',
         'expiring_order' => 'Commande :code va expirer !',
         'expiring_message' => 'Cette commande va expirer dans :remaining !'
+    ],
+
+    'modals' => [
+        'editPrices' => [
+            'title' => 'Modifier les prix de :code',
+            'desc' => 'Cette fenêtre vous permet de recalculer le prix des éléments de la commande avec des données à jour.'
+        ],
+        'editTime' => [
+            'title' => 'Étendre le délai de :code',
+            'desc' => 'Cette fenêtre vous permet d\'ajouter des jours au délai de livraison de cette commande.'
+        ]
     ]
 ];

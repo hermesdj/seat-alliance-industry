@@ -4,6 +4,8 @@
 @section('page_header', trans('allianceindustry::ai-orders.order_title', ['code' => $order->order_id]))
 
 @section('left')
+    @include('allianceindustry::modals.edit_order_prices', ['order' => $order, 'mpp' => $mpp])
+    @include('allianceindustry::modals.edit_order_time', ['order' => $order])
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-lg-12 col-xl-10">
             <div class="card border-top border-bottom border-3" style="border-color: #f37a27 !important;">
@@ -67,6 +69,10 @@
                                 </p>
                             </div>
                         @endif
+                        <div class="col mb-3">
+                            <p class="small text-muted mb-1">{{trans('allianceindustry::ai-common.deliver_to_header')}}</p>
+                            <p>@include("web::partials.character",["character"=>$order->deliverToCharacter ?? $order->user->main_character])</p>
+                        </div>
                     </div>
 
                     <div class="d-flex flex-row">
@@ -86,29 +92,27 @@
                                 @endif
 
                                 @if(!$order->completed && !$order->is_repeating)
-                                    <form action="{{ route("allianceindustry.updateOrderPrice") }}" method="POST"
-                                          class="mx-1">
-                                        @csrf
-                                        <input type="hidden" name="order" value="{{ $order->id }}">
-                                        <button type="submit" class="btn btn-secondary confirmform"
-                                                data-seat-action="{{trans('allianceindustry::ai-orders.update_price_action')}}">
-                                            <i class="fas fa-dollar-sign"></i>&nbsp;
-                                            {{trans('allianceindustry::ai-orders.update_price_btn')}}
-                                        </button>
-                                    </form>
+                                    <button
+                                            type="button"
+                                            class="btn btn-secondary"
+                                            data-toggle="modal"
+                                            data-target="#modalEditOrderPrices"
+                                    >
+                                        <i class="fas fa-dollar-sign"></i>&nbsp;
+                                        {{trans('allianceindustry::ai-orders.update_price_btn')}}
+                                    </button>
                                 @endif
 
                                 @if(!$order->is_repeating && !$order->completed)
-                                    <form action="{{ route("allianceindustry.extendOrderPrice") }}" method="POST"
-                                          class="mx-1">
-                                        @csrf
-                                        <input type="hidden" name="order" value="{{ $order->id }}">
-                                        <button type="submit" class="btn btn-secondary confirmform"
-                                                data-seat-action="{{trans('allianceindustry::ai-orders.extend_time_action')}}">
-                                            <i class="fas fa-clock "></i>&nbsp;
-                                            {{trans('allianceindustry::ai-orders.extend_time_btn')}}
-                                        </button>
-                                    </form>
+                                    <button
+                                            type="button"
+                                            class="btn btn-secondary mx-1"
+                                            data-toggle="modal"
+                                            data-target="#modalEditOrderTime"
+                                    >
+                                        <i class="fas fa-clock "></i>&nbsp;
+                                        {{trans('allianceindustry::ai-orders.extend_time_btn')}}
+                                    </button>
                                 @endif
                             @else
                                 <form action="{{ route("allianceindustry.confirmOrder", ['id' => $order->id]) }}"
@@ -159,13 +163,15 @@
                                     </a>
                                 @endif
                             @endcan
-                            @if($order->assignedQuantity() < $order->totalQuantity() && !$order->corporation)
-                                <a href="{{ route("allianceindustry.prepareDelivery", ['id' => $order->id]) }}"
-                                   class="btn btn-primary mx-1 ml-auto">
-                                    <i class="fas fa-truck"></i>&nbsp;
-                                    {{trans('allianceindustry::ai-deliveries.order_create_delivery_btn')}}
-                                </a>
-                            @endif
+                            @cannot('allianceindustry.corp_delivery')
+                                @if($order->assignedQuantity() < $order->totalQuantity() && !$order->corporation)
+                                    <a href="{{ route("allianceindustry.prepareDelivery", ['id' => $order->id]) }}"
+                                       class="btn btn-primary mx-1 ml-auto">
+                                        <i class="fas fa-truck"></i>&nbsp;
+                                        {{trans('allianceindustry::ai-deliveries.order_create_delivery_btn')}}
+                                    </a>
+                                @endif
+                            @endcannot
                         @endif
                     </div>
 

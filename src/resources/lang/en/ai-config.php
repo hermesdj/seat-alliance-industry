@@ -40,6 +40,9 @@ return [
         'priority_desc' => 'Allow a user to set a priority on an order',
 
         'corp_delivery_label' => 'Corp Delivery',
-        'corp_delivery_desc' => 'Allow to reserve the delivery of an order in the name of the corporation of the user'
+        'corp_delivery_desc' => 'Allow to reserve the delivery of an order in the name of the corporation of the user',
+
+        'change_price_provider_label' => 'Change Price Provider',
+        'change_price_provider_desc' => 'Allow the user to change the price provider on an order',
     ]
 ];

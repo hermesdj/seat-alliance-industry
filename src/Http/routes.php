@@ -110,14 +110,14 @@ Route::group([
         'middleware' => 'can:allianceindustry.create_orders'
     ]);
 
-    Route::post('/orders/update', [
+    Route::post('/orders/{orderId}/update', [
         'as' => 'allianceindustry.updateOrderPrice',
         'uses' => 'AllianceIndustryOrderController@updateOrderPrice',
         'middleware' => 'can:allianceindustry.create_orders'
     ]);
 
-    Route::post('/orders/extend', [
-        'as' => 'allianceindustry.extendOrderPrice',
+    Route::post('/orders/{orderId}/extend', [
+        'as' => 'allianceindustry.extendOrderTime',
         'uses' => 'AllianceIndustryOrderController@extendOrderTime',
         'middleware' => 'can:allianceindustry.create_orders'
     ]);

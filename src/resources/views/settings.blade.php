@@ -23,7 +23,7 @@
 
                     <div class="form-group">
                         <label for="mpp">{{trans('allianceindustry::ai-settings.mmpp_label')}}</label>
-                        <input type="number" value="{{ $mpp }}" min="0" step="0.1" id="mpp"
+                        <input type="number" value="{{ $mpp }}" step="0.1" id="mpp"
                                name="minimumprofitpercentage" class="form-control">
                         <small class="text-muted">{{trans('allianceindustry::ai-settings.mmpp_hint')}}</small>
                     </div>
@@ -32,18 +32,10 @@
                         <div class="form-check">
                             <input type="checkbox" id="allowPriceBelowAutomatic" class="form-check-input"
                                    name="allowPriceBelowAutomatic" @checked($allowPriceBelowAutomatic)>
-                            <label for="allowPriceBelowAutomatic" class="form-check-label">{{trans('allianceindustry::ai-settings.allow_manual_prices_label')}}</label>
+                            <label for="allowPriceBelowAutomatic"
+                                   class="form-check-label">{{trans('allianceindustry::ai-settings.allow_manual_prices_label')}}</label>
                         </div>
                         <small class="text-muted">{{trans('allianceindustry::ai-settings.allow_manual_prices_hint')}}</small>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="form-check">
-                            <input type="checkbox" id="allowPriceProviderSelection" class="form-check-input"
-                                   name="allowPriceProviderSelection" @checked($allowPriceProviderSelection)>
-                            <label for="allowPriceProviderSelection" class="form-check-label">{{trans('allianceindustry::ai-settings.allow_changing_price_provider_label')}}</label>
-                        </div>
-                        <small class="text-muted">{{trans('allianceindustry::ai-settings.allow_changing_price_provider_hint')}}</small>
                     </div>
 
                     <h5>{{trans('allianceindustry::ai-settings.general_settings_title')}}</h5>
@@ -52,7 +44,8 @@
                         <div class="form-check">
                             <input type="checkbox" id="removeExpiredDeliveries" class="form-check-input"
                                    name="removeExpiredDeliveries" @checked($removeExpiredDeliveries)>
-                            <label for="removeExpiredDeliveries" class="form-check-label">{{trans('allianceindustry::ai-settings.remove_expired_deliveries_label')}}</label>
+                            <label for="removeExpiredDeliveries"
+                                   class="form-check-label">{{trans('allianceindustry::ai-settings.remove_expired_deliveries_label')}}</label>
                         </div>
                         <small class="text-muted">{{trans('allianceindustry::ai-settings.remove_expired_deliveries_hint')}}</small>
                     </div>
@@ -73,14 +66,24 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="pingRolesOrderCreation">{{trans('allianceindustry::ai-settings.notifications_ping_role_label')}}</label>
-                        <input type="text" id="pingRolesOrderCreation" name="pingRolesOrderCreation"
-                               class="form-control" value="{{ $orderCreationPingRoles }}">
-                        <small class="text-muted">{{trans('allianceindustry::ai-settings.notifications_ping_role_hint')}}</small>
+                        <label for="priceProviderWhitelist">{{trans('allianceindustry::ai-settings.price_provider_whitelist_label')}}</label>
+                        <select id="priceProviderWhitelist" class="form-control" name="priceProviderWhitelist[]" multiple>
+                            @foreach(\RecursiveTree\Seat\PricesCore\Models\PriceProviderInstance::all() as $instance)
+                                @if(in_array($instance->id, $allowedPriceProviders))
+                                    <option value="{{ $instance->id }}" selected>{{ $instance->name }}</option>
+                                @else
+                                    <option value="{{ $instance->id }}">{{ $instance->name }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                        <small class="text-muted">
+                            {{trans('allianceindustry::ai-settings.price_provider_whitelist_hint')}}
+                        </small>
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary">{{trans('allianceindustry::ai-settings.update_settings_btn')}}</button>
+                        <button type="submit"
+                                class="btn btn-primary">{{trans('allianceindustry::ai-settings.update_settings_btn')}}</button>
                     </div>
                 </form>
             </div>

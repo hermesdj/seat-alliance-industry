@@ -36,5 +36,9 @@ return [
     'corp_delivery' => [
         'label' => 'allianceindustry::ai-config.permissions.corp_delivery_label',
         'description' => 'allianceindustry::ai-config.permissions.corp_delivery_desc'
+    ],
+    'change_price_provider' => [
+        'label' => 'allianceindustry::ai-config.permissions.change_price_provider_label',
+        'description' => 'allianceindustry::ai-config.permissions.change_price_provider_desc'
     ]
 ];

@@ -31,7 +31,9 @@ return [
     'quantity_header' => 'Total',
     'created_header' => 'Créé',
     'until_header' => 'Jusqu\'à',
-    'character_header' => 'Personnage',
+    'character_header' => 'Commandé par',
+    'deliver_to_header' => 'Livrer à',
+    'delivered_by_header' => 'Livré par',
 
     'actions_header' => 'Actions',
 

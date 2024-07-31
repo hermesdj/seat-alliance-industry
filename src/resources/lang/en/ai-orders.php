@@ -16,7 +16,7 @@ return [
     'split_items' => 'Split items into separate orders',
 
     'reward_label' => 'Reward %',
-    'reward_hint' => 'The minimal profit is :mpp',
+    'reward_hint' => 'The minimal profit is :mpp% and will be added to the price automatically computed. Set a profit higher to incentive producer to handle the order faster',
     'add_profit_to_manual_prices_label' => 'Add Reward to Manual Prices',
 
     'days_to_complete_label' => 'Days to complete',
@@ -29,6 +29,8 @@ return [
     'priority_Preferred' => 'Preferred',
     'priority_Important' => 'Important',
     'priority_Critical' => 'Critical',
+    'time_label' => 'Time',
+    'time_hint' => 'Will add the value in days to the current order delivery date.',
 
     'no_delivery' => 'No delivery',
 
@@ -41,6 +43,9 @@ return [
     'seat_inventory_label' => 'Seat-Inventory',
     'seat_inventory_hint' => 'Add as source to seat-inventory',
     'seat_inventory_desc' => 'As soon as a delivery for this order is created, a item source will be added to seat-inventory. Once the delivery is marked as completed, the source will be removed. The source will be added to the <u>first</u> workspace containing <code>add2allianceindustry</code> at any position in it\'s name. You can rename workspaces <a href=":route">here.</a>',
+
+    'deliver_to_label' => 'Deliver To',
+    'deliver_to_hint' => 'Select the character this order should be delivered to',
 
     'repetition_label' => 'Repetition',
     'repetition_never' => 'Never',
@@ -107,5 +112,16 @@ return [
         'reference' => 'Reference',
         'expiring_order' => 'Order :code Expiration !',
         'expiring_message' => 'This order will expire in :remaining !'
+    ],
+
+    'modals' => [
+        'editPrices' => [
+            'title' => 'Edit Order :code prices',
+            'desc' => 'This modal allow you to recompute an order prices with up to date price data from the price providers.'
+        ],
+        'editTime' => [
+            'title' => 'Extend Order :code delivery date',
+            'desc' => 'This modal allow you to extend the time of the order by adding more days to the current value.'
+        ]
     ]
 ];

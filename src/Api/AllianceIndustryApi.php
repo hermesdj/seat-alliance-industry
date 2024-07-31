@@ -20,8 +20,6 @@ class AllianceIndustryApi
 
         $default_price_provider = AllianceIndustrySettings::$DEFAULT_PRICE_PROVIDER->get();
 
-        $allowPriceProviderSelection = AllianceIndustrySettings::$ALLOW_PRICE_PROVIDER_SELECTION->get(false);
-
-        return view("allianceindustry::createOrder",compact("stations","default_price_provider", "structures","mpp","location_id","multibuy","allowPriceProviderSelection"));
+        return view("allianceindustry::createOrder",compact("stations","default_price_provider", "structures","mpp","location_id","multibuy"));
     }
 }

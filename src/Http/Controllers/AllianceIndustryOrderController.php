@@ -61,14 +61,12 @@ class AllianceIndustryOrderController extends Controller
         //ALSO UPDATE API
         $default_price_provider = AllianceIndustrySettings::$DEFAULT_PRICE_PROVIDER->get();
         //ALSO UPDATE API
-        $allowPriceProviderSelection = AllianceIndustrySettings::$ALLOW_PRICE_PROVIDER_SELECTION->get(false);
 
         $defaultPriority = AllianceIndustrySettings::$DEFAULT_PRIORITY->get(2);
 
         //ALSO UPDATE API
         return view("allianceindustry::createOrder",
             compact(
-                "allowPriceProviderSelection",
                 "stations",
                 "structures",
                 "mpp",
@@ -119,19 +117,20 @@ class AllianceIndustryOrderController extends Controller
         $request->validate([
             "items" => "required|string",
             "quantity" => "required|integer|min:1",
-            "profit" => "required|numeric|min:0",
+            "profit" => "required|numeric",
             "days" => "required|integer|min:1",
             "location" => "required|integer",
             "addToSeatInventory" => "nullable|in:on",
             "priority" => "integer",
             "priceprovider" => "nullable|integer",
             "repetition" => "nullable|integer",
-            "reference" => "nullable|string|max:32"
+            "reference" => "nullable|string|max:32",
+            "deliverTo" => "integer"
         ]);
 
         if (!$request->priority) $request->priority = 2;
 
-        if (AllianceIndustrySettings::$ALLOW_PRICE_PROVIDER_SELECTION->get(false)) {
+        if (auth()->user()->can('allianceindustry.change_price_provider')) {
             $priceProvider = $request->priceprovider;
         } else {
             $priceProvider = AllianceIndustrySettings::$DEFAULT_PRICE_PROVIDER->get(null);
@@ -200,6 +199,7 @@ class AllianceIndustryOrderController extends Controller
         $order->price = $total_price * $order->quantity;
         $order->location_id = $request->location;
         $order->created_at = $now;
+        $order->deliver_to = $request->deliverTo;
         $order->produce_until = $produce_until;
         $order->add_seat_inventory = $addToSeatInventory;
         $order->profit = floatval($request->profit);
@@ -251,13 +251,13 @@ class AllianceIndustryOrderController extends Controller
         return redirect()->back();
     }
 
-    public function extendOrderTime(Request $request)
+    public function extendOrderTime($orderId, Request $request)
     {
-        $request->validate([
-            "order" => "required|integer"
+        $data = (object) $request->validate([
+            "time" => "required|integer|min:7"
         ]);
 
-        $order = Order::find($request->order);
+        $order = Order::find($orderId);
 
         if (!$order) {
             $request->session()->flash("error", trans('allianceindustry::ai-common.error_order_not_found'));
@@ -266,25 +266,36 @@ class AllianceIndustryOrderController extends Controller
 
         Gate::authorize("allianceindustry.same-user", $order->user_id);
 
-        $order->produce_until = carbon($order->produce_until)->addWeeks();
+        $order->produce_until = carbon($order->produce_until)->addDays($data->time);
         $order->save();
 
         $request->session()->flash("success", trans('allianceindustry::ai-orders.update_time_success'));
         return redirect()->back();
     }
 
-    public function updateOrderPrice(Request $request)
+    public function updateOrderPrice($orderId, Request $request)
     {
-        $request->validate([
-            "order" => "required|integer"
+        $data = (object) $request->validate([
+            "profit" => "nullable|numeric",
+            "priceprovider" => "nullable|integer"
         ]);
 
-        $order = Order::find($request->order);
+        $order = Order::find($orderId);
 
         if (!$order) {
             $request->session()->flash("error", trans('allianceindustry::ai-common.error_order_not_found'));
             return redirect()->back();
         }
+
+        if (!is_null($data->profit) && $order->profit !== $data->profit) {
+            $order->profit = $data->profit;
+        }
+
+        if (!is_null($data->priceprovider) && $order->priceProvider !== $data->priceprovider) {
+            $order->priceProvider = $request->priceprovider;
+        }
+
+        $order->save();
 
         Gate::authorize("allianceindustry.same-user", $order->user_id);
 
@@ -333,7 +344,9 @@ class AllianceIndustryOrderController extends Controller
             return redirect()->route("allianceindustry.orders");
         }
 
-        return view("allianceindustry::orderDetails", compact("order"));
+        $mpp = AllianceIndustrySettings::$MINIMUM_PROFIT_PERCENTAGE->get(2.5);
+
+        return view("allianceindustry::orderDetails", compact("order", "mpp"));
     }
 
     public function deleteOrder(Request $request)

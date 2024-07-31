@@ -19,7 +19,6 @@ class AllianceIndustrySettingsController extends Controller
         $mpp = AllianceIndustrySettings::$MINIMUM_PROFIT_PERCENTAGE->get(2.5);
         $orderCreationPingRoles = implode(" ", AllianceIndustrySettings::$ORDER_CREATION_PING_ROLES->get([]));
         $allowPriceBelowAutomatic = AllianceIndustrySettings::$ALLOW_PRICES_BELOW_AUTOMATIC->get(false);
-        $allowPriceProviderSelection = AllianceIndustrySettings::$ALLOW_PRICE_PROVIDER_SELECTION->get(false);
 
 
         $default_price_provider = AllianceIndustrySettings::$DEFAULT_PRICE_PROVIDER->get();
@@ -27,18 +26,20 @@ class AllianceIndustrySettingsController extends Controller
 
         $removeExpiredDeliveries = AllianceIndustrySettings::$REMOVE_EXPIRED_DELIVERIES->get(false);
 
+        $allowedPriceProviders = AllianceIndustrySettings::$ALLOWED_PRICE_PROVIDERS->get([$default_price_provider]);
+
         return view(
             "allianceindustry::settings",
             compact(
                 "removeExpiredDeliveries",
-                "allowPriceProviderSelection",
                 "default_price_provider",
                 "mpp",
                 "orderCreationPingRoles",
                 "allowPriceBelowAutomatic",
                 "stations",
                 "structures",
-                "defaultOrderLocation"
+                "defaultOrderLocation",
+                "allowedPriceProviders"
             )
         );
     }
@@ -46,13 +47,13 @@ class AllianceIndustrySettingsController extends Controller
     public function saveSettings(Request $request)
     {
         $request->validate([
-            "minimumprofitpercentage" => "required|numeric|min:0",
+            "minimumprofitpercentage" => "required|numeric",
             "pingRolesOrderCreation" => "string|nullable",
             "allowPriceBelowAutomatic" => "nullable|in:on",
             "defaultLocation" => "required|integer",
             "defaultPriceProvider" => "required|integer",
-            "allowPriceProviderSelection" => "nullable|in:on",
             "removeExpiredDeliveries" => "nullable|in:on",
+            "priceProviderWhitelist.*" => "integer"
         ]);
 
         $roles = [];
@@ -70,8 +71,8 @@ class AllianceIndustrySettingsController extends Controller
         AllianceIndustrySettings::$ORDER_CREATION_PING_ROLES->set($roles);
         AllianceIndustrySettings::$ALLOW_PRICES_BELOW_AUTOMATIC->set(boolval($request->allowPriceBelowAutomatic));
         AllianceIndustrySettings::$DEFAULT_ORDER_LOCATION->set($request->defaultLocation);
-        AllianceIndustrySettings::$ALLOW_PRICE_PROVIDER_SELECTION->set(boolval($request->allowPriceProviderSelection));
         AllianceIndustrySettings::$REMOVE_EXPIRED_DELIVERIES->set(boolval($request->removeExpiredDeliveries));
+        AllianceIndustrySettings::$ALLOWED_PRICE_PROVIDERS->set($request->priceProviderWhitelist);
 
         $request->session()->flash("success", trans('allianceindustry::ai-settings.update_settings_success'));
         return redirect()->route("allianceindustry.settings");

@@ -32,6 +32,7 @@ return [
     'created_header' => 'Created',
     'until_header' => 'Until',
     'character_header' => 'Character',
+    'deliver_to_header' => 'Deliver To',
 
     'actions_header' => 'Actions',
 

@@ -17,6 +17,12 @@
                 @csrf
 
                 <div class="form-group">
+                    <label for="deliverTo">{{trans('allianceindustry::ai-orders.deliver_to_label')}}</label>
+                    @include("allianceindustry::utils.deliverToSelector",["id"=>"deliverTo","name"=>"deliverTo","character_id"=>auth()->user()->main_character->character_id])
+                    <small class="text-muted">{{trans('allianceindustry::ai-orders.deliver_to_hint')}}</small>
+                </div>
+
+                <div class="form-group">
                     <label for="reference">{{trans('allianceindustry::ai-orders.reference_label')}}</label>
                     <input type="text" id="reference" class="form-control" maxlength="32"
                            name="reference">
@@ -40,20 +46,19 @@
                             rows="20">{{ $multibuy ?? "" }}</textarea>
                 </div>
 
-                @if($allowPriceProviderSelection)
+                @can('allianceindustry.change_price_provider')
                     <div class="form-group">
                         <label for="priceprovider">{{trans('allianceindustry::ai-common.price_provider_label')}}</label>
-                        @include("pricescore::utils.instance_selector",["id"=>"priceprovider","name"=>"priceprovider","instance_id"=>$default_price_provider])
+                        @include("allianceindustry::utils.priceProviderSelector",["id"=>"priceprovider","name"=>"priceprovider","instance_id"=>$default_price_provider])
                         <small class="text-muted">{{trans('allianceindustry::ai-common.price_provider_hint')}}</small>
                     </div>
-                @endif
+                @endcan
 
                 <div class="form-group">
                     <label for="profit">{{trans('allianceindustry::ai-orders.reward_label')}}</label>
-                    <input type="number" id="profit" class="form-control" value="{{ $mpp }}" min="{{ $mpp }}" step="0.1"
+                    <input type="number" id="profit" class="form-control" value="0" step="0.1"
                            name="profit">
-                    <small class="text-muted">{{trans('allianceindustry::ai-orders.reward_hint', ['mpp' => $mpp])}}
-                        %</small>
+                    <small class="text-muted">{{trans('allianceindustry::ai-orders.reward_hint', ['mpp' => $mpp])}}</small>
                 </div>
 
                 <div class="form-group">

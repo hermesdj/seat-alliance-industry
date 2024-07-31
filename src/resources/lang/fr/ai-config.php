@@ -40,6 +40,9 @@ return [
         'priority_desc' => 'Permet à un utilisateur de gérer la priorité d\'une commande',
 
         'corp_delivery_label' => 'Livraison Corpo',
-        'corp_delivery_desc' => 'Permet à l\'utilisateur de réserver une commande pour qu\'elle soit livrée au nom de sa corporation'
+        'corp_delivery_desc' => 'Permet à l\'utilisateur de réserver une commande pour qu\'elle soit livrée au nom de sa corporation',
+
+        'change_price_provider_label' => 'Changer fournisseur de prix',
+        'change_price_provider_desc' => 'Permet à un utilisateur de changer le fournisseur de prix sur une commande'
     ]
 ];
