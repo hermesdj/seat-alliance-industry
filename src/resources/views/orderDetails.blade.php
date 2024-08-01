@@ -162,14 +162,15 @@
                                         {{trans('allianceindustry::ai-deliveries.order_create_delivery_btn')}}
                                     </a>
                                 @endif
-                                @if($order->assignedQuantity() < $order->totalQuantity() && !$order->corporation)
-                                    <a href="{{ route("allianceindustry.prepareDelivery", ['id' => $order->id]) }}"
-                                       class="btn btn-primary mx-1 ml-auto">
-                                        <i class="fas fa-truck"></i>&nbsp;
-                                        {{trans('allianceindustry::ai-deliveries.order_create_delivery_btn')}}
-                                    </a>
-                                @endif
+                            @endcan
+                            @if($order->assignedQuantity() < $order->totalQuantity() && !$order->corporation)
+                                <a href="{{ route("allianceindustry.prepareDelivery", ['id' => $order->id]) }}"
+                                   class="btn btn-primary mx-1 ml-auto">
+                                    <i class="fas fa-truck"></i>&nbsp;
+                                    {{trans('allianceindustry::ai-deliveries.order_create_delivery_btn')}}
+                                </a>
                             @endif
+                        @endif
                     </div>
 
                     @if($order->items->count() > 1)
