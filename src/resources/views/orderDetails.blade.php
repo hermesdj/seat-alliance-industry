@@ -162,8 +162,7 @@
                                         {{trans('allianceindustry::ai-deliveries.order_create_delivery_btn')}}
                                     </a>
                                 @endif
-                            @endcan
-                            @cannot('allianceindustry.corp_delivery')
+                            @else
                                 @if($order->assignedQuantity() < $order->totalQuantity() && !$order->corporation)
                                     <a href="{{ route("allianceindustry.prepareDelivery", ['id' => $order->id]) }}"
                                        class="btn btn-primary mx-1 ml-auto">
@@ -171,7 +170,7 @@
                                         {{trans('allianceindustry::ai-deliveries.order_create_delivery_btn')}}
                                     </a>
                                 @endif
-                            @endcannot
+                            @endcan
                         @endif
                     </div>
 
