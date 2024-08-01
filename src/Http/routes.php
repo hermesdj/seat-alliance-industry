@@ -58,7 +58,7 @@ Route::group([
     Route::get('/delivery/{id}/details', [
         'as' => 'allianceindustry.deliveryDetails',
         'uses' => 'AllianceIndustryDeliveryController@deliveryDetails',
-        'middleware' => 'can:allianceindustry.create_deliveries'
+        'middleware' => 'can:allianceindustry.view_orders'
     ]);
 
     Route::get('/order/{id}/deliveries/prepare', [
