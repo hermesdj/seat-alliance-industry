@@ -86,11 +86,9 @@
                             @endif
                         @endcan
                     </div>
-                    @if($delivery->deliveryItems->count() > 1)
-                        <div class="mx-n5 px-5 py-4">
-                            @include('allianceindustry::partials.deliveryItemTable', ['items' => $delivery->deliveryItems])
-                        </div>
-                    @endif
+                    <div class="mx-n5 px-5 py-4">
+                        @include('allianceindustry::partials.deliveryItemTable', ['items' => $delivery->deliveryItems])
+                    </div>
                 </div>
             </div>
         </div>
