@@ -253,7 +253,7 @@ class AllianceIndustryOrderController extends Controller
 
     public function extendOrderTime($orderId, Request $request)
     {
-        $data = (object) $request->validate([
+        $data = (object)$request->validate([
             "time" => "required|integer|min:7"
         ]);
 
@@ -275,7 +275,7 @@ class AllianceIndustryOrderController extends Controller
 
     public function updateOrderPrice($orderId, Request $request)
     {
-        $data = (object) $request->validate([
+        $data = (object)$request->validate([
             "profit" => "nullable|numeric",
             "priceprovider" => "nullable|integer"
         ]);
@@ -363,7 +363,7 @@ class AllianceIndustryOrderController extends Controller
 
         Gate::authorize("allianceindustry.same-user", $order->user_id);
 
-        if (!$order->deliveries->isEmpty() && !$order->completed && !auth()->user()->can("allianceindustry.admin")) {
+        if ($order->hasPendingDeliveries() && !auth()->user()->can("allianceindustry.admin")) {
             $request->session()->flash("error", trans('allianceindustry::ai-common.error_deleted_in_progress_order'));
             return redirect()->route("allianceindustry.orders");
         }

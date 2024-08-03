@@ -173,11 +173,9 @@
                         @endif
                     </div>
 
-                    @if($order->items->count() > 1)
-                        <div class="mx-n5 px-5 py-4">
-                            @include('allianceindustry::partials.orderItemTable', ['items' => $order->items])
-                        </div>
-                    @endif
+                    <div class="mx-n5 px-5 py-4">
+                        @include('allianceindustry::partials.orderItemTable', ['items' => $order->items])
+                    </div>
 
                     @if(!$order->is_repeating)
                         @if(!$order->deliveries->isEmpty())
