@@ -4,6 +4,7 @@ namespace RecursiveTree\Seat\AllianceIndustry\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use RecursiveTree\Seat\PricesCore\Models\PriceProviderInstance;
 use Seat\Eveapi\Models\Character\CharacterInfo;
 use Seat\Eveapi\Models\Corporation\CorporationInfo;
 use Seat\Eveapi\Models\Universe\UniverseStation;
@@ -60,6 +61,11 @@ class Order extends Model
     public function location()
     {
         return $this->station ?: $this->structure;
+    }
+
+    public function priceProviderInstance()
+    {
+        return $this->hasOne(PriceProviderInstance::class, 'id', 'priceProvider');
     }
 
     public function assignedQuantity()

@@ -74,6 +74,16 @@
                             <p>@include("web::partials.character",["character"=>$order->deliverToCharacter ?? $order->user->main_character])</p>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <p class="small text-muted mb-1">{{trans('allianceindustry::ai-common.price_provider_label')}}</p>
+                            <p>{{$order->priceProviderInstance->name}}</p>
+                        </div>
+                        <div class="col mb-3">
+                            <p class="small text-muted mb-1">{{trans('allianceindustry::ai-orders.reward_label')}}</p>
+                            <p>{{$order->profit}}%</p>
+                        </div>
+                    </div>
 
                     <div class="d-flex flex-row">
                         @can("allianceindustry.same-user",$order->user_id)
