@@ -10,6 +10,7 @@ use RecursiveTree\Seat\AllianceIndustry\Helpers\AllianceIndustryHelper;
 use RecursiveTree\Seat\AllianceIndustry\Item\PriceableEveItem;
 use RecursiveTree\Seat\AllianceIndustry\Jobs\SendOrderNotification;
 use RecursiveTree\Seat\AllianceIndustry\Jobs\UpdateRepeatingOrders;
+use RecursiveTree\Seat\AllianceIndustry\Models\Delivery;
 use RecursiveTree\Seat\AllianceIndustry\Models\Order;
 use RecursiveTree\Seat\AllianceIndustry\Models\OrderItem;
 use RecursiveTree\Seat\AllianceIndustry\Models\Statistics\OrderStatistic;
@@ -287,12 +288,17 @@ class AllianceIndustryOrderController extends Controller
             return redirect()->back();
         }
 
+        if($order->hasPendingDeliveries()) {
+            $request->session()->flash("error", trans('allianceindustry::ai-common.error_order_has_uncomplete_deliveries'));
+            return redirect()->back();
+        }
+
         if (!is_null($data->profit) && $order->profit !== $data->profit) {
             $order->profit = $data->profit;
         }
 
         if (!is_null($data->priceprovider) && $order->priceProvider !== $data->priceprovider) {
-            $order->priceProvider = $request->priceprovider;
+            $order->priceProvider = $data->priceprovider;
         }
 
         $order->save();

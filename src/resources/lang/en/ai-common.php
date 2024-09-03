@@ -59,6 +59,7 @@ return [
     'error_obsolete_order' => 'Can\'t update pre-seat-5 orders due to breaking internal changes.',
     'error_price_provider_get_prices' => 'The price provider failed to fetch prices: :message',
     'error_deleted_in_progress_order' => 'You cannot delete orders that people are currently manufacturing!',
+    'error_order_has_uncomplete_deliveries' => 'You cannot update the price on an order with incomplete deliveries',
 
     // Deliveries errors
     'error_delivery_not_assignable_to_repeating_order' => 'Repeating orders can\'t have deliveries',

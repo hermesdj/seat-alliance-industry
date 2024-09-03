@@ -60,6 +60,7 @@ return [
     'error_obsolete_order' => 'Ne peut pas modifier des commandes obsolètes d\'avant Seat 5.0 à cause d\'un changement interne du code.',
     'error_price_provider_get_prices' => 'Le fournisseur de prix n\'a pas réussi à récupérer les prix: :message',
     'error_deleted_in_progress_order' => 'Vous ne pouvez pas supprimer les commandes que des personnes sont en train de fabriquer !',
+    'error_order_has_uncomplete_deliveries' => 'Vous ne pouvez pas modifier le prix d\'une commande qui a des livraisons en attente !',
 
     // Deliveries errors
     'error_delivery_not_assignable_to_repeating_order' => 'Les commandes répétées ne peuvent pas être livrées',
